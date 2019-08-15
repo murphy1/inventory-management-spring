@@ -17,6 +17,14 @@ public class Game{
     private String description;
     private String platform;
 
+    public Long getId() {
+        return Id;
+    }
+
+    public void setId(Long id) {
+        Id = id;
+    }
+
     public String getName() {
         return name;
     }

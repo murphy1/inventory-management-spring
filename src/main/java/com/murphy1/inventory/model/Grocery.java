@@ -18,6 +18,14 @@ public class Grocery {
     private String description;
     private LocalDate expiration;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getName() {
         return name;
     }
