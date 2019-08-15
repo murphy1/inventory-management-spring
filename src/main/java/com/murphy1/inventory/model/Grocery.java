@@ -1,40 +1,43 @@
 package com.murphy1.inventory.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.time.LocalDate;
 
-public class Grocery extends Product {
+@Entity
+public class Grocery {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     private String name;
     private Double price;
     private String description;
     private LocalDate expiration;
 
-    @Override
     public String getName() {
         return name;
     }
 
-    @Override
     public void setName(String name) {
         this.name = name;
     }
 
-    @Override
     public Double getPrice() {
         return price;
     }
 
-    @Override
     public void setPrice(Double price) {
         this.price = price;
     }
 
-    @Override
     public String getDescription() {
         return description;
     }
 
-    @Override
     public void setDescription(String description) {
         this.description = description;
     }

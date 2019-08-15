@@ -1,38 +1,42 @@
 package com.murphy1.inventory.model;
 
-public class Furniture extends Product {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
+public class Furniture{
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long Id;
 
     private String name;
     private Double price;
     private String description;
     private String store;
 
-    @Override
     public String getName() {
         return name;
     }
 
-    @Override
     public void setName(String name) {
         this.name = name;
     }
 
-    @Override
     public Double getPrice() {
         return price;
     }
 
-    @Override
     public void setPrice(Double price) {
         this.price = price;
     }
 
-    @Override
     public String getDescription() {
         return description;
     }
 
-    @Override
     public void setDescription(String description) {
         this.description = description;
     }
