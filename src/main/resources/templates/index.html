@@ -8,5 +8,24 @@
 
 <h1>Welcome to the index page!</h1>
 
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Expiration</th>
+        <th>Price</th>
+    </tr>
+    </thead>
+    <tr th:each="grocery : ${groceries}">
+        <td th:text="${grocery.id}"></td>
+        <td th:text="${grocery.name}"></td>
+        <td th:text="${grocery.description}"></td>
+        <td th:text="${grocery.expiration}"></td>
+        <td th:text="${grocery.price}"></td>
+    </tr>
+</table>
+
 </body>
 </html>
