@@ -1,11 +1,7 @@
 package com.murphy1.inventory.bootstrap;
 
-import com.murphy1.inventory.model.Electronic;
-import com.murphy1.inventory.model.Game;
-import com.murphy1.inventory.model.Grocery;
-import com.murphy1.inventory.repositories.ElectronicRepository;
-import com.murphy1.inventory.repositories.GameRepository;
-import com.murphy1.inventory.repositories.GroceryRepository;
+import com.murphy1.inventory.model.*;
+import com.murphy1.inventory.repositories.*;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
@@ -19,11 +15,17 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
     private GameRepository gameRepository;
     private ElectronicRepository electronicRepository;
     private GroceryRepository groceryRepository;
+    private UserRepository userRepository;
+    private WalletRepository walletRepository;
 
-    public DataLoader(GameRepository gameRepository, ElectronicRepository electronicRepository, GroceryRepository groceryRepository) {
+    public DataLoader(GameRepository gameRepository, ElectronicRepository electronicRepository,
+                      GroceryRepository groceryRepository, UserRepository userRepository,
+                      WalletRepository walletRepository) {
         this.gameRepository = gameRepository;
         this.electronicRepository = electronicRepository;
         this.groceryRepository = groceryRepository;
+        this.userRepository = userRepository;
+        this.walletRepository = walletRepository;
     }
 
     @Override
@@ -74,6 +76,13 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
         pasta.setDescription("Uncooked Spaghetti pasta");
         pasta.setPrice(2.10);
         groceryRepository.save(pasta);
+
+        User user1 = new User();
+        user1.setFirstName("John");
+        user1.setLastName("Doe");
+        user1.setUsername("jd12345");
+        user1.setWallet(new Wallet(300.0));
+        userRepository.save(user1);
 
     }
 }

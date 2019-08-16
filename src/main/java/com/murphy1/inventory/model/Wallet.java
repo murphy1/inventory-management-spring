@@ -10,6 +10,14 @@ public class Wallet extends BaseEntity{
     @OneToOne
     private User user;
 
+    public Wallet(){
+
+    }
+
+    public Wallet(Double balance){
+        this.balance = balance;
+    }
+
     public Double getBalance() {
         return balance;
     }
@@ -24,5 +32,6 @@ public class Wallet extends BaseEntity{
 
     public void setUser(User user) {
         this.user = user;
+        user.setWallet(this);
     }
 }
