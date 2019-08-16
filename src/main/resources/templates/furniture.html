@@ -6,5 +6,26 @@
 </head>
 <body>
 
+<h1>All Furniture</h1>
+
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Description</th>
+        <th>Store</th>
+    </tr>
+    </thead>
+    <tr th:each="item : ${furniture}">
+        <td th:text="${item.id}"></td>
+        <td th:text="${item.name}"></td>
+        <td th:text="${item.price}"></td>
+        <td th:text="${item.description}"></td>
+        <td th:text="${item.store}"></td>
+    </tr>
+</table>
+
 </body>
 </html>

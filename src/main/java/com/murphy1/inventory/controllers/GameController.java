@@ -2,6 +2,7 @@ package com.murphy1.inventory.controllers;
 
 import com.murphy1.inventory.services.GameService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -14,7 +15,10 @@ public class GameController {
     }
 
     @RequestMapping({"/game", "/games", "/game.html", "/games.html"})
-    public String getAllGames(){
+    public String getAllGames(Model model){
+
+        model.addAttribute("games", gameService.getAllGames());
+
         return "game";
     }
 

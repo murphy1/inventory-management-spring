@@ -6,5 +6,25 @@
 </head>
 <body>
 
+<h1>List of Groceries</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Description</th>
+            <th>Expiration</th>
+        </tr>
+    </thead>
+    <tr th:each="item : ${groceries}">
+        <td th:text="${item.id}"></td>
+        <td th:text="${item.name}"></td>
+        <td th:text="${item.price}"></td>
+        <td th:text="${item.description}"></td>
+        <td th:text="${item.expiration}"></td>
+    </tr>
+</table>
+
 </body>
 </html>
