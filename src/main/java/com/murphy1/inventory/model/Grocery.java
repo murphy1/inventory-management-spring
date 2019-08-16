@@ -4,25 +4,14 @@ import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-public class Grocery {
+public class Grocery extends BaseEntity{
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
     private String name;
     private Double price;
 
     @Lob
     private String description;
     private LocalDate expiration;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;

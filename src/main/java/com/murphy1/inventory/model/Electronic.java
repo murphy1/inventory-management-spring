@@ -3,11 +3,7 @@ package com.murphy1.inventory.model;
 import javax.persistence.*;
 
 @Entity
-public class Electronic {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Electronic extends BaseEntity{
 
     private String name;
     private Double price;
@@ -15,14 +11,6 @@ public class Electronic {
     @Lob
     private String description;
     private String brand;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;

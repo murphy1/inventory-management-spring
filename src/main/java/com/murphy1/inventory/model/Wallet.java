@@ -3,23 +3,12 @@ package com.murphy1.inventory.model;
 import javax.persistence.*;
 
 @Entity
-public class Wallet {
+public class Wallet extends BaseEntity{
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
     private Double balance;
 
     @OneToOne
     private User user;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public Double getBalance() {
         return balance;

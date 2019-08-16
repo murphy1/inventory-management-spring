@@ -3,11 +3,7 @@ package com.murphy1.inventory.model;
 import javax.persistence.*;
 
 @Entity
-public class Game{
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
+public class Game extends BaseEntity{
 
     private String name;
     private Double price;
@@ -15,14 +11,6 @@ public class Game{
     @Lob
     private String description;
     private String platform;
-
-    public Long getId() {
-        return Id;
-    }
-
-    public void setId(Long id) {
-        Id = id;
-    }
 
     public String getName() {
         return name;
