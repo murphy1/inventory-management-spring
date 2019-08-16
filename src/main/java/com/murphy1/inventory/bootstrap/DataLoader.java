@@ -84,5 +84,12 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
         user1.setWallet(new Wallet(300.0));
         userRepository.save(user1);
 
+        User user2 = new User();
+        user2.setFirstName("Jane");
+        user2.setLastName("Doe");
+        user2.setUsername("doe12");
+        user2.setWallet(new Wallet(212.0));
+        userRepository.save(user2);
+
     }
 }

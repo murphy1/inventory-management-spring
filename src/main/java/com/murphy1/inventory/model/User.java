@@ -42,5 +42,6 @@ public class User extends BaseEntity{
 
     public void setWallet(Wallet wallet) {
         this.wallet = wallet;
+        wallet.setUser(this);
     }
 }

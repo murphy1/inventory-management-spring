@@ -12,18 +12,18 @@
     <thead>
     <tr>
         <th>ID</th>
-        <th>Name</th>
-        <th>Description</th>
-        <th>Expiration</th>
-        <th>Price</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Username</th>
+        <th>Wallet Balance</th>
     </tr>
     </thead>
-    <tr th:each="grocery : ${groceries}">
-        <td th:text="${grocery.id}"></td>
-        <td th:text="${grocery.name}"></td>
-        <td th:text="${grocery.description}"></td>
-        <td th:text="${grocery.expiration}"></td>
-        <td th:text="${grocery.price}"></td>
+    <tr th:each="user : ${users}">
+        <td th:text="${user.id}"></td>
+        <td th:text="${user.firstName}"></td>
+        <td th:text="${user.lastName}"></td>
+        <td th:text="${user.username}"></td>
+        <td th:text="${user.getWallet().getBalance()}"></td>
     </tr>
 </table>
 
