@@ -9,7 +9,7 @@ import org.springframework.ui.Model;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class IndexControllerTestFive {
+class IndexControllerTest {
 
     @Mock
     UserService userService;

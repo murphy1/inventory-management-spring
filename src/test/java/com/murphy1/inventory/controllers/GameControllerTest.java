@@ -18,7 +18,7 @@ import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
-class GameControllerTestFive {
+class GameControllerTest {
 
     @Mock
     GameService gameService;
