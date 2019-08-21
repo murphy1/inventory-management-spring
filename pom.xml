@@ -15,7 +15,7 @@
     <description>Inventory Management project created with Spring</description>
 
     <properties>
-        <java.version>11</java.version>
+        <java.version>11.0.4</java.version>
     </properties>
 
     <dependencies>
