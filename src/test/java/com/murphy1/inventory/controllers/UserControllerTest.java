@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.ui.Model;
 
 import java.util.ArrayList;
@@ -14,7 +16,8 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.anyList;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
@@ -28,10 +31,13 @@ class UserControllerTest {
 
     UserController userController;
 
+    MockMvc mockMvc;
+
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
         userController = new UserController(userService);
+        mockMvc = MockMvcBuilders.standaloneSetup(userController).build();
     }
 
     @Test
@@ -55,4 +61,29 @@ class UserControllerTest {
         List<User> setInController = argumentCaptor.getValue();
         assertEquals(2, setInController.size());
     }
+
+    @Test
+    void newUserTest() throws Exception{
+        mockMvc.perform(get("/user/new"))
+                .andExpect(status().is2xxSuccessful())
+                .andExpect(model().attributeExists("user"))
+                .andExpect(view().name("forms/userform"));
+    }
+
+    @Test
+    void saveAndUpdateTest() throws Exception{
+        User user = new User();
+        user.setId(1L);
+
+        when(userService.saveUser(any())).thenReturn(user);
+        User returnedUser = userService.saveUser(any());
+
+        assertEquals(Long.valueOf(1L), returnedUser.getId());
+        verify(userService, times(1)).saveUser(any());
+
+        mockMvc.perform(post("/user/new/user"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:/users.html"));
+    }
+
 }
