@@ -7,5 +7,5 @@ import java.util.List;
 public interface GroceryService{
 
     List<Grocery> getAllGroceries();
-
+    Grocery save(Grocery grocery);
 }

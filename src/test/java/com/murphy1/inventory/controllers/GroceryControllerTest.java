@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.ui.Model;
 
 import java.util.ArrayList;
@@ -16,6 +18,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.mockito.ArgumentMatchers.eq;
 
 class GroceryControllerTest {
 
@@ -27,10 +32,13 @@ class GroceryControllerTest {
 
     GroceryController groceryController;
 
+    MockMvc mockMvc;
+
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
         groceryController = new GroceryController(groceryService);
+        mockMvc = MockMvcBuilders.standaloneSetup(groceryController).build();
     }
 
     @Test
@@ -53,5 +61,26 @@ class GroceryControllerTest {
         verify(model, times(1)).addAttribute(eq("groceries"), argumentCaptor.capture());
         List<Grocery> setInController = argumentCaptor.getValue();
         assertEquals(2, setInController.size());
+    }
+
+    @Test
+    void saveAndUpdate() throws Exception{
+        Grocery grocery = new Grocery();
+        when(groceryService.save(any())).thenReturn(grocery);
+        groceryService.save(any());
+
+        verify(groceryService, times(1)).save(any());
+
+        mockMvc.perform(post("/user/new/grocery"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:/grocery.html"));
+    }
+
+    @Test
+    void newGrocery() throws Exception{
+        mockMvc.perform(get("/grocery/new"))
+                .andExpect(status().is2xxSuccessful())
+                .andExpect(model().attributeExists("grocery"))
+                .andExpect(view().name("forms/groceryform"));
     }
 }

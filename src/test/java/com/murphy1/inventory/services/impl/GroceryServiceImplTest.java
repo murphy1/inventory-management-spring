@@ -39,4 +39,15 @@ class GroceryServiceImplTest {
         assertEquals(1, callingList.size());
         verify(groceryRepository, times(1)).findAll();
     }
+
+    @Test
+    void save() throws Exception{
+        Grocery grocery = new Grocery();
+        grocery.setId(1L);
+
+        when(groceryRepository.save(any())).thenReturn(grocery);
+        groceryRepository.save(any());
+
+        verify(groceryRepository, times(1)).save(any());
+    }
 }

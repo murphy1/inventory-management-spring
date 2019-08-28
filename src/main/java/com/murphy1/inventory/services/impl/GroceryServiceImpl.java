@@ -26,4 +26,12 @@ public class GroceryServiceImpl implements GroceryService {
 
         return groceries;
     }
+
+    @Override
+    public Grocery save(Grocery grocery) {
+
+        groceryRepository.save(grocery);
+
+        return grocery;
+    }
 }
