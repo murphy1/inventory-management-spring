@@ -102,4 +102,11 @@ class UserControllerTest {
                 .andExpect(view().name("redirect:/users.html"));
     }
 
+    @Test
+    void deleteUserById() throws Exception{
+        mockMvc.perform(get("/user/delete/1"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:/users.html"));
+    }
+
 }

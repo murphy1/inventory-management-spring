@@ -68,4 +68,14 @@ class UserServiceImplTest {
         assertNotNull(returnedOptional);
         verify(userRepository, times(1)).findById(anyLong());
     }
+
+    @Test
+    void deleteUserByIdTest() throws Exception{
+        User user = new User();
+        user.setId(1L);
+
+        userRepository.deleteById(1L);
+
+        verify(userRepository, times(1)).deleteById(anyLong());
+    }
 }
