@@ -83,4 +83,18 @@ class GroceryControllerTest {
                 .andExpect(model().attributeExists("grocery"))
                 .andExpect(view().name("forms/groceryform"));
     }
+
+    @Test
+    void updateGrocery() throws Exception{
+        Grocery grocery = new Grocery();
+
+        when(groceryService.findById(any())).thenReturn(grocery);
+        groceryService.findById(any());
+
+        verify(groceryService, times(1)).findById(any());
+        mockMvc.perform(get("/grocery/update/1"))
+                .andExpect(status().is2xxSuccessful())
+                .andExpect(model().attributeExists("grocery"))
+                .andExpect(view().name("forms/groceryform"));
+    }
 }

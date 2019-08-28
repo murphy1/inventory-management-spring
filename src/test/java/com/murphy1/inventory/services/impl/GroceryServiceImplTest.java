@@ -8,6 +8,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -49,5 +50,15 @@ class GroceryServiceImplTest {
         groceryRepository.save(any());
 
         verify(groceryRepository, times(1)).save(any());
+    }
+
+    @Test
+    void findById() throws Exception{
+        Optional<Grocery> groceryOptional = groceryRepository.findById(anyLong());
+
+        when(groceryRepository.findById(anyLong())).thenReturn(groceryOptional);
+
+        assertNotNull(groceryOptional);
+        verify(groceryRepository, times(1)).findById(anyLong());
     }
 }

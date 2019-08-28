@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class GroceryServiceImpl implements GroceryService {
@@ -33,5 +34,17 @@ public class GroceryServiceImpl implements GroceryService {
         groceryRepository.save(grocery);
 
         return grocery;
+    }
+
+    @Override
+    public Grocery findById(Long id) {
+
+        Optional<Grocery> returnedGrocery = groceryRepository.findById(id);
+
+        if (!returnedGrocery.isPresent()){
+            throw new RuntimeException("Grocery does not exist!");
+        }
+
+        return returnedGrocery.get();
     }
 }

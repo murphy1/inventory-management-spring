@@ -4,10 +4,7 @@ import com.murphy1.inventory.model.Grocery;
 import com.murphy1.inventory.services.GroceryService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class GroceryController {
@@ -36,6 +33,13 @@ public class GroceryController {
     @GetMapping("grocery/new")
     public String newGrocery(Model model){
         model.addAttribute("grocery", new Grocery());
+
+        return "forms/groceryform";
+    }
+
+    @GetMapping("/grocery/update/{groceryId}")
+    public String updateGrocery(@PathVariable String groceryId, Model model){
+        model.addAttribute("grocery", groceryService.findById(Long.valueOf(groceryId)));
 
         return "forms/groceryform";
     }

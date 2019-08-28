@@ -8,4 +8,5 @@ public interface GroceryService{
 
     List<Grocery> getAllGroceries();
     Grocery save(Grocery grocery);
+    Grocery findById(Long id);
 }
