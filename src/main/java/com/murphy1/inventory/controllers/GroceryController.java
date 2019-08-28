@@ -44,4 +44,11 @@ public class GroceryController {
         return "forms/groceryform";
     }
 
+    @GetMapping("/grocery/delete/{groceryId}")
+    public String deleteGroceryById(@PathVariable String groceryId){
+        groceryService.deleteById(Long.valueOf(groceryId));
+
+        return "redirect:/grocery.html";
+    }
+
 }

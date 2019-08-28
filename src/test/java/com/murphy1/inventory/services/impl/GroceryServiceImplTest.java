@@ -61,4 +61,11 @@ class GroceryServiceImplTest {
         assertNotNull(groceryOptional);
         verify(groceryRepository, times(1)).findById(anyLong());
     }
+
+    @Test
+    void deleteById() throws Exception{
+        groceryRepository.deleteById(anyLong());
+
+        verify(groceryRepository, times(1)).deleteById(anyLong());
+    }
 }

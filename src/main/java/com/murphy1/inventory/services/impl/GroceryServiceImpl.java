@@ -47,4 +47,9 @@ public class GroceryServiceImpl implements GroceryService {
 
         return returnedGrocery.get();
     }
+
+    @Override
+    public void deleteById(Long id) {
+        groceryRepository.deleteById(id);
+    }
 }

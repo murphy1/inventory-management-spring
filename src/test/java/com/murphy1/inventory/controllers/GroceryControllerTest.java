@@ -97,4 +97,14 @@ class GroceryControllerTest {
                 .andExpect(model().attributeExists("grocery"))
                 .andExpect(view().name("forms/groceryform"));
     }
+
+    @Test
+    void deleteGrocery() throws Exception{
+        groceryService.deleteById(anyLong());
+        verify(groceryService, times(1)).deleteById(anyLong());
+
+        mockMvc.perform(get("/grocery/delete/1"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:/grocery.html"));
+    }
 }

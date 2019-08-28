@@ -30,7 +30,7 @@
                             <td th:text="${item.description}">Otto</td>
                             <td th:text="${item.expiration}"></td>
                             <td><a href="#" th:href="@{'/grocery/update/'+ ${item.id}}" class="btn btn-info" role="button">Update</a></td>
-                            <td><a href="#" class="btn btn-info" role="button">Delete</a></td>
+                            <td><a href="#" th:href="@{'/grocery/delete/'+ ${item.id}}" class="btn btn-info" role="button">Delete</a></td>
                         </tr>
                         </tbody>
                     </table>
