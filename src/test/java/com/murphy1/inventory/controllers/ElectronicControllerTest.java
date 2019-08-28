@@ -17,6 +17,9 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.mockito.ArgumentMatchers.eq;
 
 class ElectronicControllerTest {
 
@@ -28,10 +31,13 @@ class ElectronicControllerTest {
 
     ElectronicController electronicController;
 
+    MockMvc mockMvc;
+
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
         electronicController = new ElectronicController(electronicService);
+        mockMvc = MockMvcBuilders.standaloneSetup(electronicController).build();
     }
 
     @Test
@@ -55,4 +61,28 @@ class ElectronicControllerTest {
         List<Electronic> setInController = argumentCaptor.getValue();
         assertEquals(2, setInController.size());
     }
+
+    @Test
+    void createElectronic() throws Exception{
+        mockMvc.perform(get("/electronic/new"))
+                .andExpect(status().is2xxSuccessful())
+                .andExpect(model().attributeExists("electronic"))
+                .andExpect(view().name("forms/electronicform"));
+    }
+
+    @Test
+    void saveAndUpdate() throws Exception{
+        Electronic electronic = new Electronic();
+
+        when(electronicService.save(any())).thenReturn(electronic);
+        electronicService.save(any());
+
+        verify(electronicService, times(1)).save(any());
+
+        mockMvc.perform(post("/user/new/electronic"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:/electronics.html"));
+    }
+
+
 }

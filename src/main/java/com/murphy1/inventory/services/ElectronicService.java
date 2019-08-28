@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface ElectronicService {
     List<Electronic> getAllElectronics();
+    Electronic save(Electronic electronic);
 }

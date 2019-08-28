@@ -40,4 +40,14 @@ class ElectronicServiceImplTest {
         assertEquals(1, callingList.size());
         verify(electronicRepository, times(1)).findAll();
     }
+
+    @Test
+    void saveElectronic() throws Exception{
+        Electronic electronic = new Electronic();
+
+        when(electronicRepository.save(any())).thenReturn(electronic);
+        electronicRepository.save(any());
+
+        verify(electronicRepository, times(1)).save(any());
+    }
 }

@@ -23,4 +23,10 @@ public class ElectronicServiceImpl implements ElectronicService {
         electronicRepository.findAll().forEach(electronics::add);
         return electronics;
     }
+
+    @Override
+    public Electronic save(Electronic electronic) {
+        electronicRepository.save(electronic);
+        return electronic;
+    }
 }
