@@ -71,6 +71,22 @@ class UserControllerTest {
     }
 
     @Test
+    void updateUserTest() throws Exception{
+        User user = new User();
+        user.setId(1L);
+
+        when(userService.findUserById(anyLong())).thenReturn(user);
+        userService.findUserById(anyLong());
+
+        mockMvc.perform(get("/user/update/1"))
+                .andExpect(status().isOk())
+                .andExpect(model().attributeExists("user"))
+                .andExpect(view().name("forms/userform"));
+
+        verify(userService, times(2)).findUserById(anyLong());
+    }
+
+    @Test
     void saveAndUpdateTest() throws Exception{
         User user = new User();
         user.setId(1L);

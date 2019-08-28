@@ -11,6 +11,7 @@ import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -56,5 +57,15 @@ class UserServiceImplTest {
 
         assertEquals(Long.valueOf(1L), user.getId());
         verify(userRepository, times(1)).save(any());
+    }
+
+    @Test
+    void findUserByIdTest() throws RuntimeException{
+        Optional<User> returnedOptional = userRepository.findById(anyLong());
+
+        when(userRepository.findById(anyLong())).thenReturn(returnedOptional);
+
+        assertNotNull(returnedOptional);
+        verify(userRepository, times(1)).findById(anyLong());
     }
 }

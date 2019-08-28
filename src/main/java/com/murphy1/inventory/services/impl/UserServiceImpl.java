@@ -44,10 +44,28 @@ public class UserServiceImpl implements UserService {
             wallet.setBalance(0.0);
             walletRepository.save(wallet);
             user.setWallet(wallet);
+        }else{
+            for (Wallet wallet : walletRepository.findAll()){
+                if (wallet.getUser().getId().equals(user.getId())){
+                    user.setWallet(wallet);
+                }
+            }
         }
 
         userRepository.save(user);
 
         return user;
+    }
+
+    @Override
+    public User findUserById(Long id) {
+        Optional<User> returnedUser = userRepository.findById(id);
+
+        if (!returnedUser.isPresent()){
+            log.error("User not found with id: "+id);
+            throw new RuntimeException("User not found!");
+        }
+
+        return returnedUser.get();
     }
 }

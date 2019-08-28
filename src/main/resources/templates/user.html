@@ -27,12 +27,12 @@
                             <td th:text="${item.firstName}">Otto</td>
                             <td th:text="${item.lastName}">Otto</td>
                             <td th:text="${item.username}">Otto</td>
+                            <td><a href="#" th:href="@{'/user/update/'+ ${item.id}}" class="btn btn-info" role="button">Update User</a></td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
                 <a href="/user/new" class="btn btn-info" role="button">Add a User</a><br>
-                <a href="#" class="btn btn-info" role="button">Update User</a><br>
                 <a href="#" class="btn btn-info" role="button">Delete User</a><br>
             </div>
         </div>

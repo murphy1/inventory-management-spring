@@ -4,9 +4,7 @@ import com.murphy1.inventory.model.User;
 import com.murphy1.inventory.services.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class UserController {
@@ -28,6 +26,13 @@ public class UserController {
     @RequestMapping("user/new")
     public String newUser(Model model){
         model.addAttribute("user", new User());
+
+        return "forms/userform";
+    }
+
+    @GetMapping("user/update/{userId}")
+    public String updateUser(@PathVariable String userId, Model model){
+        model.addAttribute("user", userService.findUserById(Long.valueOf(userId)));
 
         return "forms/userform";
     }
