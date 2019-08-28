@@ -48,3 +48,10 @@ hr.light {
     background-color: dimgrey;
     color: #222222;
 }
+
+/* CSS for user.html */
+
+.btn-info {
+    background-color: lightgray;
+    color: #222222;
+}

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>New User Form</title>
+</head>
+<body>
+
+<div class="container-fluid" style="margin-top: 20px">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <form  th:object="${user}" th:action="@{/user/new/user} " method="post">
+
+                <div class="pannel-group">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h1 class="panel-title">Create new User</h1>
+                        </div>
+                        <div class="panel-body">
+
+
+                            <div class="row">
+                                <div class="col-md-3 form-group">
+                                    <label>First Name:</label>
+                                    <input type="text" class="form-control" th:field="*{firstName}"/>
+                                </div>
+
+                                <div class="col-md-3 form-group">
+                                    <label>Last Name:</label>
+                                    <input type="text" class="form-control" th:field="*{lastName}"/>
+                                </div>
+
+                                <div class="col-md-3 form-group">
+                                    <label>Username:</label>
+                                    <input type="text" class="form-control" th:field="*{username}"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
