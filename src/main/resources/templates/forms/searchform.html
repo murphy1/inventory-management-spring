@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Search</title>
+</head>
+<body>
+
+<div class="container-fluid" style="margin-top: 20px">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <!--/*@thymesVar id="searchObject" type="com.murphy1.inventory.model.SearchObject"*/-->
+            <form th:object="${searchObject}" th:action="@{/search/newsearch} " method="get">
+
+                <div class="pannel-group">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h1 class="panel-title">Search for Anything! Users, Groceries...</h1>
+                        </div>
+                        <div class="panel-body">
+
+                            <input type="hidden">
+
+
+                            <div class="row">
+                                <div class="col-md-3 form-group">
+                                    <label>Search Query:</label>
+                                    <input type="text" class="form-control" th:field="*{query}"/>
+                                </div>
+
+                                <div class="col-md-3 form-group">
+                                    <label>What are you looking for? (A Person, Grocery, Game?):</label>
+                                    <input type="text" class="form-control" th:field="*{searchObjectForSearch}"/>
+                                </div>
+
+                                <div class="col-md-3 form-group">
+                                    <label>How do you want to search? (By Name, ID, Description?):</label>
+                                    <input type="text" class="form-control" th:field="*{searchType}"/>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

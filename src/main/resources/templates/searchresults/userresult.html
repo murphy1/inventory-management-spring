@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User Results</title>
+</head>
+<body>
+
+<div class="container-fluid padding">
+    <div class="row padding">
+        <div class="col-12">
+            <div class="card" title="table-card">
+                <div class="card-body">
+                    <h4 class="card-title">Results</h4>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">First Name</th>
+                            <th scope="col">Last Name</th>
+                            <th scope="col">Username</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="item : ${user}">
+                            <td th:text="${item.id}">Mark</td>
+                            <td th:text="${item.firstName}">Otto</td>
+                            <td th:text="${item.lastName}">Otto</td>
+                            <td th:text="${item.username}">Otto</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <a href="/user/new" class="btn btn-info" role="button">Add a User</a><br>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
