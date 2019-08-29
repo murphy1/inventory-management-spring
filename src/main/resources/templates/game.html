@@ -29,10 +29,13 @@
                             <td th:text="${item.price}">Otto</td>
                             <td th:text="${item.description}">Otto</td>
                             <td th:text="${item.platform}"></td>
+                            <td><a href="#" th:href="@{'/game/update/'+ ${item.id}}" class="btn btn-info" role="button">Update</a></td>
+                            <td><a href="#" th:href="@{'/game/delete/'+ ${item.id}}" class="btn btn-info" role="button">Delete</a></td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
+                <a href="/game/new" class="btn btn-info" role="button">Add a Game</a><br>
             </div>
         </div>
     </div>

@@ -23,4 +23,9 @@ public class GameServiceImpl implements GameService {
         gameRepository.findAll().forEach(games::add);
         return games;
     }
+
+    @Override
+    public Game save(Game game) {
+        return gameRepository.save(game);
+    }
 }

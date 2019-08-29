@@ -40,4 +40,14 @@ class GameServiceImplTest {
         assertEquals(1, callingList.size());
         verify(gameRepository, times(1)).findAll();
     }
+
+    @Test
+    void save(){
+        Game game = new Game();
+
+        when(gameRepository.save(any())).thenReturn(game);
+        gameRepository.save(any());
+
+        verify(gameRepository, times(1)).save(any());
+    }
 }
