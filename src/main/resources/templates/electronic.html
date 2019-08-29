@@ -29,8 +29,8 @@
                             <td th:text="${item.price}">Otto</td>
                             <td th:text="${item.description}">Otto</td>
                             <td th:text="${item.brand}"></td>
-                            <td><a href="#" class="btn btn-info" role="button">Update</a></td>
-                            <td><a href="#" class="btn btn-info" role="button">Delete</a></td>
+                            <td><a href="#" th:href="@{'/electronic/update/'+${item.id}}" class="btn btn-info" role="button">Update</a></td>
+                            <td><a href="#" th:href="@{'/electronic/delete/'+${item.id}}" class="btn btn-info" role="button">Delete</a></td>
                         </tr>
                         </tbody>
                     </table>

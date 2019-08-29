@@ -7,4 +7,6 @@ import java.util.List;
 public interface ElectronicService {
     List<Electronic> getAllElectronics();
     Electronic save(Electronic electronic);
+    Electronic findById(Long id);
+    void deleteById(Long id);
 }

@@ -84,5 +84,26 @@ class ElectronicControllerTest {
                 .andExpect(view().name("redirect:/electronics.html"));
     }
 
+    @Test
+    void updateElectronic() throws Exception{
+        Electronic electronic = new Electronic();
+
+        when(electronicService.findById(anyLong())).thenReturn(electronic);
+        electronicService.findById(anyLong());
+
+        verify(electronicService, times(1)).findById(anyLong());
+        mockMvc.perform(get("/electronic/update/1"))
+                .andExpect(status().is2xxSuccessful())
+                .andExpect(model().attributeExists("electronic"))
+                .andExpect(view().name("forms/electronicform"));
+    }
+
+    @Test
+    void deleteElectronicById() throws Exception{
+        mockMvc.perform(get("/electronic/delete/1"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:/electronics.html"));
+    }
+
 
 }

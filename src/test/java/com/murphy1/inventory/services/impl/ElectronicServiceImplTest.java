@@ -9,6 +9,7 @@ import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -49,5 +50,20 @@ class ElectronicServiceImplTest {
         electronicRepository.save(any());
 
         verify(electronicRepository, times(1)).save(any());
+    }
+
+    @Test
+    void findById() throws Exception{
+        Optional<Electronic> electronicOptional = electronicRepository.findById(anyLong());
+        when(electronicRepository.findById(anyLong())).thenReturn(electronicOptional);
+
+        verify(electronicRepository, times(1)).findById(anyLong());
+    }
+
+    @Test
+    void deleteById() throws Exception{
+        electronicRepository.deleteById(anyLong());
+
+        verify(electronicRepository, times(1)).deleteById(anyLong());
     }
 }

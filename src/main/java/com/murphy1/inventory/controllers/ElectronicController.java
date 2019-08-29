@@ -4,10 +4,7 @@ import com.murphy1.inventory.model.Electronic;
 import com.murphy1.inventory.services.ElectronicService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class ElectronicController {
@@ -36,6 +33,20 @@ public class ElectronicController {
     @PostMapping("/user/new/electronic")
     public String saveAndUpdate(@ModelAttribute Electronic electronic){
         Electronic savedElectronic = electronicService.save(electronic);
+
+        return "redirect:/electronics.html";
+    }
+
+    @GetMapping("/electronic/update/{electronicId}")
+    public String updateElectronic(@PathVariable String electronicId, Model model){
+        model.addAttribute("electronic", electronicService.findById(Long.valueOf(electronicId)));
+
+        return "forms/electronicform";
+    }
+
+    @GetMapping("/electronic/delete/{electronicId}")
+    public String deleteElectronicById(@PathVariable String electronicId){
+        electronicService.deleteById(Long.valueOf(electronicId));
 
         return "redirect:/electronics.html";
     }
