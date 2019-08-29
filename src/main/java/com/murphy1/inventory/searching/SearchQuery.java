@@ -21,6 +21,7 @@ public class SearchQuery {
 
     private Set<String> idAttributes = new HashSet<>();
     private Set<String> nameAttributes = new HashSet<>();
+    private Set<String> descriptionAttributes = new HashSet<>();
 
     public SearchQuery(ElectronicService electronicService, FurnitureService furnitureService, GameService gameService, GroceryService groceryService, UserService userService) {
         this.electronicService = electronicService;
@@ -35,6 +36,8 @@ public class SearchQuery {
 
         nameAttributes.add("name");
         nameAttributes.add("names");
+
+        descriptionAttributes.add("description");
     }
 
     public String objectSearchType(String objectToCheck, String query, String type){
@@ -44,8 +47,6 @@ public class SearchQuery {
         Set<String> groceries = new HashSet<>();
         Set<String> users = new HashSet<>();
 
-        electronics.add("Electronic");
-        electronics.add("Electronics");
         electronics.add("electronics");
         electronics.add("electronic");
 
@@ -129,6 +130,8 @@ public class SearchQuery {
         User returnedUser = new User();
 
         if (idAttributes.contains(typeOfSearch.toLowerCase())){
+            //todo catch NumberFormatException error if a String is entered when searching for an ID
+
             log.info("Person search found the type id. Searching...");
             returnedUser = userService.findUserById(Long.valueOf(query));
         }
@@ -160,6 +163,14 @@ public class SearchQuery {
             List<Electronic> electronics = electronicService.getAllElectronics();
             for (Electronic electronic : electronics){
                 if (electronic.getName().toLowerCase().contains(query.toLowerCase())){
+                    return electronic;
+                }
+            }
+        }
+        else if (descriptionAttributes.contains(typeOfSearch.toLowerCase())){
+            List<Electronic> electronics = electronicService.getAllElectronics();
+            for (Electronic electronic : electronics){
+                if (electronic.getDescription().toLowerCase().contains(query.toLowerCase())){
                     return electronic;
                 }
             }
@@ -217,6 +228,14 @@ public class SearchQuery {
             List<Grocery> groceries = groceryService.getAllGroceries();
             for (Grocery grocery : groceries){
                 if (grocery.getName().toLowerCase().contains(query.toLowerCase())){
+                    return grocery;
+                }
+            }
+        }
+        else if (descriptionAttributes.contains(typeOfSearch.toLowerCase())){
+            List<Grocery> groceries = groceryService.getAllGroceries();
+            for (Grocery grocery : groceries){
+                if (grocery.getDescription().toLowerCase().contains(query.toLowerCase())){
                     return grocery;
                 }
             }
