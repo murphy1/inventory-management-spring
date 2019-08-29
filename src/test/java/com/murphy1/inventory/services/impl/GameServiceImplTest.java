@@ -9,6 +9,7 @@ import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -49,5 +50,24 @@ class GameServiceImplTest {
         gameRepository.save(any());
 
         verify(gameRepository, times(1)).save(any());
+    }
+
+    @Test
+    void updateGame() throws Exception{
+        Game game = new Game();
+
+        when(gameRepository.findById(anyLong())).thenReturn(Optional.of(game));
+        gameRepository.findById(anyLong());
+
+        verify(gameRepository, times(1)).findById(anyLong());
+    }
+
+    @Test
+    void deleteGameById() throws Exception{
+        Game game = new Game();
+
+        gameRepository.deleteById(anyLong());
+
+        verify(gameRepository, times(1)).deleteById(anyLong());
     }
 }

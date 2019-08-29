@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class GameServiceImpl implements GameService {
@@ -27,5 +28,21 @@ public class GameServiceImpl implements GameService {
     @Override
     public Game save(Game game) {
         return gameRepository.save(game);
+    }
+
+    @Override
+    public Game findById(Long id) {
+        Optional<Game> returnedGame = gameRepository.findById(id);
+
+        if (!returnedGame.isPresent()){
+            throw new RuntimeException("Game does not exist!");
+        }
+
+        return returnedGame.get();
+    }
+
+    @Override
+    public void deleteGameById(Long id) {
+        gameRepository.deleteById(id);
     }
 }

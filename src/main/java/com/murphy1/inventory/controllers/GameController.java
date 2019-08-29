@@ -4,10 +4,7 @@ import com.murphy1.inventory.model.Game;
 import com.murphy1.inventory.services.GameService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class GameController {
@@ -36,6 +33,20 @@ public class GameController {
     @PostMapping("/user/new/game")
     public String saveAndUpdate(@ModelAttribute Game game, Model model){
         model.addAttribute("game", gameService.save(game));
+
+        return "redirect:/games.html";
+    }
+
+    @GetMapping("/game/update/{gameId}")
+    public String updateGame(@PathVariable String gameId, Model model){
+        model.addAttribute("game", gameService.findById(Long.valueOf(gameId)));
+
+        return "forms/gameform";
+    }
+
+    @GetMapping("/game/delete/{gameId}")
+    public String deleteGameById(@PathVariable String gameId){
+        gameService.deleteGameById(Long.valueOf(gameId));
 
         return "redirect:/games.html";
     }
