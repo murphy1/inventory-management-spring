@@ -37,25 +37,27 @@ public class SearchController {
 
         String returnString = "";
 
-        if (objectForResults.equals("user")){
-            log.info("sending new user attribute to the user result page for display...");
-            returnString = "searchresults/userresult";
-        }
-        else if (objectForResults.equals("electronic")){
-            log.info("sending new Electronic attribute to the Electronic result page for display...");
-            returnString = "searchresults/electronicresult";
-        }
-        else if (objectForResults.equals("furniture")){
-            log.info("sending new Furniture attribute to the Furniture result page for display...");
-            returnString = "searchresults/furnitureresult";
-        }
-        else if (objectForResults.equals("game")){
-            log.info("sending new Game attribute to the Game result page for display...");
-            returnString = "searchresults/gameresult";
-        }
-        else if (objectForResults.equals("grocery")){
-            log.info("sending new Grocery attribute to the Grocery result page for display...");
-            returnString = "searchresults/groceryresult";
+        switch (objectForResults) {
+            case "user":
+                log.info("sending new user attribute to the user result page for display...");
+                returnString = "searchresults/userresult";
+                break;
+            case "electronic":
+                log.info("sending new Electronic attribute to the Electronic result page for display...");
+                returnString = "searchresults/electronicresult";
+                break;
+            case "furniture":
+                log.info("sending new Furniture attribute to the Furniture result page for display...");
+                returnString = "searchresults/furnitureresult";
+                break;
+            case "game":
+                log.info("sending new Game attribute to the Game result page for display...");
+                returnString = "searchresults/gameresult";
+                break;
+            case "grocery":
+                log.info("sending new Grocery attribute to the Grocery result page for display...");
+                returnString = "searchresults/groceryresult";
+                break;
         }
 
         return returnString;
