@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class FurnitureServiceImpl implements FurnitureService {
@@ -27,5 +28,21 @@ public class FurnitureServiceImpl implements FurnitureService {
     @Override
     public Furniture save(Furniture furniture) {
         return furnitureRepository.save(furniture);
+    }
+
+    @Override
+    public Furniture findById(Long id) {
+        Optional<Furniture> furnitureOptional = furnitureRepository.findById(id);
+
+        if (!furnitureOptional.isPresent()){
+            throw new RuntimeException("Furniture does not exist!");
+        }
+
+        return furnitureOptional.get();
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        furnitureRepository.deleteById(id);
     }
 }

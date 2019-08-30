@@ -9,6 +9,7 @@ import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -47,5 +48,22 @@ class FurnitureServiceImplTest {
         furnitureRepository.save(furniture);
 
         verify(furnitureRepository, times(1)).save(any());
+    }
+
+    @Test
+    void findById() throws Exception{
+        Optional<Furniture> furnitureOptional = furnitureRepository.findById(anyLong());
+
+        when(furnitureRepository.findById(anyLong())).thenReturn(furnitureOptional);
+
+        assertNotNull(furnitureOptional);
+        verify(furnitureRepository, times(1)).findById(anyLong());
+    }
+
+    @Test
+    void deleteById() throws Exception{
+        furnitureRepository.deleteById(anyLong());
+
+        verify(furnitureRepository, times(1)).deleteById(anyLong());
     }
 }

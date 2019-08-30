@@ -16,10 +16,10 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.*;
 
 class FurnitureControllerTest {
 
@@ -81,6 +81,31 @@ class FurnitureControllerTest {
         mockMvc.perform(post("/user/new/furniture"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(model().attributeExists("furniture"))
+                .andExpect(view().name("redirect:/furniture.html"));
+    }
+
+    @Test
+    void updateFurniture() throws Exception{
+        Furniture furniture = new Furniture();
+
+        when(furnitureService.findById(anyLong())).thenReturn(furniture);
+        furnitureService.findById(anyLong());
+
+        verify(furnitureService, times(1)).findById(anyLong());
+        mockMvc.perform(get("/furniture/update/1"))
+                .andExpect(status().is2xxSuccessful())
+                .andExpect(model().attributeExists("furniture"))
+                .andExpect(view().name("forms/furnitureform"));
+    }
+
+    @Test
+    void deleteFurniture() throws Exception{
+        furnitureService.deleteById(anyLong());
+
+        verify(furnitureService, times(1)).deleteById(anyLong());
+
+        mockMvc.perform(get("/furniture/delete/1"))
+                .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/furniture.html"));
     }
 }
