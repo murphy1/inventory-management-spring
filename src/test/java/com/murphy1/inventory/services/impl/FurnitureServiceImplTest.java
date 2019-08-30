@@ -40,4 +40,12 @@ class FurnitureServiceImplTest {
         assertEquals(1, listToCall.size());
         verify(furnitureRepository, times(1)).findAll();
     }
+
+    @Test
+    void save(){
+        Furniture furniture = new Furniture();
+        furnitureRepository.save(furniture);
+
+        verify(furnitureRepository, times(1)).save(any());
+    }
 }

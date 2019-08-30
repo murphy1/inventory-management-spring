@@ -23,4 +23,9 @@ public class FurnitureServiceImpl implements FurnitureService {
         furnitureRepository.findAll().forEach(furnitureList::add);
         return furnitureList;
     }
+
+    @Override
+    public Furniture save(Furniture furniture) {
+        return furnitureRepository.save(furniture);
+    }
 }

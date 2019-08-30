@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface FurnitureService {
     List<Furniture> getAllFurniture();
+    Furniture save(Furniture furniture);
 }

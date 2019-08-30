@@ -29,10 +29,13 @@
                             <td th:text="${item.price}">Otto</td>
                             <td th:text="${item.description}">Otto</td>
                             <td th:text="${item.store}"></td>
+                            <td><a href="#" th:href="@{'/furniture/update/'+${item.id}}" class="btn btn-info" role="button">Update</a></td>
+                            <td><a href="#" th:href="@{'/furniture/delete/'+${item.id}}" class="btn btn-info" role="button">Delete</a></td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
+                <a href="/furniture/new" class="btn btn-info" role="button">Add a Furniture product</a><br>
             </div>
         </div>
     </div>
