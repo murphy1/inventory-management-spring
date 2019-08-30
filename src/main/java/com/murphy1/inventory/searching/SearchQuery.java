@@ -62,6 +62,7 @@ public class SearchQuery {
         groceries.add("groceries");
         groceries.add("Grocery");
         groceries.add("grocery");
+        groceries.add("food");
 
         users.add("Users");
         users.add("users");
@@ -186,11 +187,25 @@ public class SearchQuery {
     private Furniture furnitureSearch(String query, String typeOfSearch){
         Furniture returnedFurniture = new Furniture();
 
-        // not yet implemented in Service Layer!!!
-
         if (idAttributes.contains(typeOfSearch.toLowerCase())){
             log.info("Furniture search found the type id. Searching...");
-            //returnedFurniture = furnitureService.fin(Long.valueOf(query));
+            returnedFurniture = furnitureService.findById(Long.valueOf(query));
+        }
+        else if (nameAttributes.contains(typeOfSearch.toLowerCase())){
+            List<Furniture> furniture = furnitureService.getAllFurniture();
+            for (Furniture furniture1 : furniture){
+                if (furniture1.getName().toLowerCase().contains(query.toLowerCase())){
+                    return furniture1;
+                }
+            }
+        }
+        else if (descriptionAttributes.contains(typeOfSearch.toLowerCase())){
+            List<Furniture> furniture = furnitureService.getAllFurniture();
+            for (Furniture furniture1 : furniture){
+                if (furniture1.getDescription().toLowerCase().contains(query.toLowerCase())){
+                    return furniture1;
+                }
+            }
         }
         else {
             log.error("That attribute does not exist!");
@@ -203,11 +218,25 @@ public class SearchQuery {
     private Game gameSearch(String query, String typeOfSearch){
         Game returnedGame = new Game();
 
-        // not yet implemented in Service Layer!!!
-
         if (idAttributes.contains(typeOfSearch.toLowerCase())){
             log.info("Game search found the type id. Searching...");
-            //returnedGame = gameService.findUserById(Long.valueOf(query));
+            returnedGame = gameService.findById(Long.valueOf(query));
+        }
+        else if (nameAttributes.contains(typeOfSearch.toLowerCase())){
+            List<Game> games = gameService.getAllGames();
+            for (Game game : games){
+                if (game.getName().toLowerCase().contains(query.toLowerCase())){
+                    return game;
+                }
+            }
+        }
+        else if (descriptionAttributes.contains(typeOfSearch.toLowerCase())){
+            List<Game> games = gameService.getAllGames();
+            for (Game game : games){
+                if (game.getDescription().toLowerCase().contains(query.toLowerCase())){
+                    return game;
+                }
+            }
         }
         else {
             log.error("That attribute does not exist!");
