@@ -8,13 +8,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
+import java.util.List;
+
 @Slf4j
 @Controller
 public class SearchController {
     // for searching
     private SearchQuery searchQuery;
     private String objectForResults;
-    private Object returnedObject;
+    private List returnedObject;
 
     public SearchController(SearchQuery searchQuery) {
         this.searchQuery = searchQuery;
@@ -74,7 +76,7 @@ public class SearchController {
         returnedObject = searchQuery.searchDelegater(stringForDelegation[0], stringForDelegation[1], stringForDelegation[2]);
 
         // object to be passed to the results page.
-        String[] stringArray = returnedObject.getClass().getName().split("model.");
+        String[] stringArray = returnedObject.stream().findFirst().get().getClass().getName().split("model.");
         objectForResults = stringArray[1].toLowerCase();
 
         return "redirect:/searchresult";
