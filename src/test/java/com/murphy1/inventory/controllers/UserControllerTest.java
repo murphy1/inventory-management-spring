@@ -97,7 +97,12 @@ class UserControllerTest {
         assertEquals(Long.valueOf(1L), returnedUser.getId());
         verify(userService, times(1)).saveUser(any());
 
-        mockMvc.perform(post("/user/new/user"))
+        mockMvc.perform(post("/user/new/user")
+                .param("id", "")
+                .param("firstName", "string")
+                .param("lastName", "string")
+                .param("username", "string")
+        )
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/users.html"));
     }

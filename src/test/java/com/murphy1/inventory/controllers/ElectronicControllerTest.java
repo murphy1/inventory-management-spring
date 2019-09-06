@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.ui.Model;
@@ -79,7 +80,13 @@ class ElectronicControllerTest {
 
         verify(electronicService, times(1)).save(any());
 
-        mockMvc.perform(post("/user/new/electronic"))
+        mockMvc.perform(post("/user/new/electronic")
+                .param("id", "")
+                .param("name", "string")
+                .param("price", String.valueOf(2.0))
+                .param("description", "string")
+                .param("brand", "string")
+        )
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/electronics.html"));
     }

@@ -79,7 +79,13 @@ class GameControllerTest {
 
         verify(gameService, times(1)).save(any());
 
-        mockMvc.perform(post("/user/new/game"))
+        mockMvc.perform(post("/user/new/game")
+                .param("id", "")
+                .param("name", "string")
+                .param("price", String.valueOf(2.0))
+                .param("description", "string")
+                .param("platform", "string")
+        )
                 .andExpect(status().is3xxRedirection())
                 .andExpect(model().attributeExists("game"))
                 .andExpect(view().name("redirect:/games.html"));

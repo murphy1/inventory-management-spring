@@ -7,10 +7,12 @@ import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.format.datetime.joda.DateTimeParser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.ui.Model;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,12 +68,19 @@ class GroceryControllerTest {
     @Test
     void saveAndUpdate() throws Exception{
         Grocery grocery = new Grocery();
+
         when(groceryService.save(any())).thenReturn(grocery);
         groceryService.save(any());
 
         verify(groceryService, times(1)).save(any());
 
-        mockMvc.perform(post("/user/new/grocery"))
+        mockMvc.perform(post("/user/new/grocery")
+                .param("id", "")
+                .param("name", "string")
+                .param("price", String.valueOf(2.0))
+                .param("description", "string")
+                .param("expiration", "12/12/19")
+        )
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/grocery.html"));
     }

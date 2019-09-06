@@ -78,7 +78,13 @@ class FurnitureControllerTest {
         furnitureService.save(any());
 
         verify(furnitureService, times(1)).save(any());
-        mockMvc.perform(post("/user/new/furniture"))
+        mockMvc.perform(post("/user/new/furniture")
+                .param("id", "")
+                .param("name", "string")
+                .param("price", String.valueOf(2.0))
+                .param("description", "string")
+                .param("store", "string")
+        )
                 .andExpect(status().is3xxRedirection())
                 .andExpect(model().attributeExists("furniture"))
                 .andExpect(view().name("redirect:/furniture.html"));
