@@ -2,10 +2,15 @@ package com.murphy1.inventory.controllers;
 
 import com.murphy1.inventory.model.Game;
 import com.murphy1.inventory.services.GameService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
+@Slf4j
 @Controller
 public class GameController {
 
@@ -31,8 +36,16 @@ public class GameController {
     }
 
     @PostMapping("/user/new/game")
-    public String saveAndUpdate(@ModelAttribute Game game, Model model){
-        model.addAttribute("game", gameService.save(game));
+    public String saveAndUpdate(@Valid @ModelAttribute("game") Game game, BindingResult bindingResult){
+
+        if (bindingResult.hasErrors()){
+            bindingResult.getAllErrors().forEach(objectError ->
+                    log.debug(objectError.toString())
+                    );
+            return "forms/gameform";
+        }
+
+        gameService.save(game);
 
         return "redirect:/games.html";
     }

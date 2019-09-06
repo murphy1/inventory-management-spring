@@ -2,10 +2,15 @@ package com.murphy1.inventory.controllers;
 
 import com.murphy1.inventory.model.Grocery;
 import com.murphy1.inventory.services.GroceryService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
+@Slf4j
 @Controller
 public class GroceryController {
 
@@ -24,8 +29,16 @@ public class GroceryController {
     }
 
     @PostMapping("/user/new/grocery")
-    public String saveAndUpdate(@ModelAttribute Grocery grocery){
-        Grocery savedGrocery = groceryService.save(grocery);
+    public String saveAndUpdate(@Valid @ModelAttribute("grocery") Grocery grocery, BindingResult bindingResult){
+
+        if (bindingResult.hasErrors()){
+            bindingResult.getAllErrors().forEach(objectError ->
+                    log.debug(objectError.toString())
+                    );
+            return "forms/groceryform";
+        }
+
+        groceryService.save(grocery);
 
         return "redirect:/grocery.html";
     }

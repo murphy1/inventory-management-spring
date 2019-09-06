@@ -2,10 +2,15 @@ package com.murphy1.inventory.controllers;
 
 import com.murphy1.inventory.model.Furniture;
 import com.murphy1.inventory.services.FurnitureService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
+@Slf4j
 @Controller
 public class FurnitureController {
 
@@ -31,8 +36,16 @@ public class FurnitureController {
     }
 
     @PostMapping("/user/new/furniture")
-    public String saveAndUpdate(@ModelAttribute Furniture furniture, Model model){
-        model.addAttribute("furniture", furnitureService.save(furniture));
+    public String saveAndUpdate(@Valid @ModelAttribute("furniture") Furniture furniture, BindingResult bindingResult){
+
+        if (bindingResult.hasErrors()){
+            bindingResult.getAllErrors().forEach(objectError ->
+                    log.debug(objectError.toString())
+                    );
+            return "forms/furnitureform";
+        }
+
+        furnitureService.save(furniture);
 
         return "redirect:/furniture.html";
     }

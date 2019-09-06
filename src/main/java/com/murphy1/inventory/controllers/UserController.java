@@ -2,10 +2,15 @@ package com.murphy1.inventory.controllers;
 
 import com.murphy1.inventory.model.User;
 import com.murphy1.inventory.services.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
+@Slf4j
 @Controller
 public class UserController {
 
@@ -38,8 +43,16 @@ public class UserController {
     }
 
     @PostMapping("user/new/user")
-    public String saveAndUpdate(@ModelAttribute User user){
-        User savedUser = userService.saveUser(user);
+    public String saveAndUpdate(@Valid @ModelAttribute("user") User user, BindingResult bindingResult){
+
+        if (bindingResult.hasErrors()){
+            bindingResult.getAllErrors().forEach(objectError ->
+                    log.debug(objectError.toString())
+                    );
+            return "forms/userform";
+        }
+
+        userService.saveUser(user);
 
         return "redirect:/users.html";
     }

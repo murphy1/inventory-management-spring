@@ -1,12 +1,17 @@
 package com.murphy1.inventory.model;
 
 import javax.persistence.Lob;
+import javax.validation.constraints.NotNull;
 
 public class SearchObject {
 
     @Lob
     private String query;
+
+    @NotNull
     private String searchObjectForSearch;
+
+    @NotNull
     private String searchType;
 
     public String getQuery() {
