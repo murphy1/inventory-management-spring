@@ -5,6 +5,7 @@ import com.murphy1.inventory.services.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -62,6 +63,7 @@ public class SearchQuery {
         groceries.add("groceries");
         groceries.add("Grocery");
         groceries.add("grocery");
+        groceries.add("food");
 
         users.add("Users");
         users.add("users");
@@ -96,51 +98,53 @@ public class SearchQuery {
     }
 
     // Decides which Service to use to query the DB
-    public Object searchDelegater(String object, String query, String type){
+    public List searchDelegater(String object, String query, String type){
 
         if (object.equals("electronic")){
             log.info("Search delegater found electronic. Sending to electronic search.");
-            Electronic electronic = electronicSearch(query, type);
+            List<Electronic> electronic = electronicSearch(query, type);
             return electronic;
         }
         if (object.equals("furniture")){
             log.info("Search delegater found furniture. Sending to furniture search.");
-            Furniture furniture = furnitureSearch(query, type);
+            List<Furniture> furniture = furnitureSearch(query, type);
             return furniture;
         }
         if (object.equals("game")){
             log.info("Search delegater found game. Sending to game search.");
-            Game game = gameSearch(query, type);
+            List<Game> game = gameSearch(query, type);
             return game;
         }
         if (object.equals("grocery")){
             log.info("Search delegater found grocery. Sending to grocery search.");
-            Grocery grocery = grocerySearch(query, type);
+            List<Grocery> grocery = grocerySearch(query, type);
             return grocery;
         }
         if (object.equals("user")){
             log.info("Search delegater found user. Sending to person search.");
-            User user = personSearch(query, type);
+            List<User> user = personSearch(query, type);
             return user;
         }
         return null;
     }
 
-    private User personSearch(String query, String typeOfSearch){
-        User returnedUser = new User();
+    private List<User> personSearch(String query, String typeOfSearch){
+        List<User> returnList = new ArrayList<>();
 
         if (idAttributes.contains(typeOfSearch.toLowerCase())){
             //todo catch NumberFormatException error if a String is entered when searching for an ID
 
             log.info("Person search found the type id. Searching...");
-            returnedUser = userService.findUserById(Long.valueOf(query));
+            //returnedUser = userService.findUserById(Long.valueOf(query));
+            returnList.add(userService.findUserById(Long.valueOf(query)));
         }
         else if (nameAttributes.contains(typeOfSearch.toLowerCase())){
             List<User> users = userService.getAllUsers();
             for (User user : users){
                 if (user.getFirstName().toLowerCase().contains(query.toLowerCase()) ||
                         user.getLastName().toLowerCase().contains(query.toLowerCase())){
-                    return user;
+                    returnList.add(user);
+                    //return user;
                 }
             }
         }
@@ -149,21 +153,21 @@ public class SearchQuery {
             throw new RuntimeException("Attribute does not exist! "+typeOfSearch);
         }
 
-        return returnedUser;
+        return returnList;
     }
 
-    private Electronic electronicSearch(String query, String typeOfSearch){
-        Electronic returnedElectronic = new Electronic();
+    private List<Electronic> electronicSearch(String query, String typeOfSearch){
+        List<Electronic> returnList = new ArrayList<>();
 
         if (idAttributes.contains(typeOfSearch.toLowerCase())){
             log.info("Electronic search found the type id. Searching...");
-            returnedElectronic = electronicService.findById(Long.valueOf(query));
+            returnList.add(electronicService.findById(Long.valueOf(query)));
         }
         else if (nameAttributes.contains(typeOfSearch.toLowerCase())){
             List<Electronic> electronics = electronicService.getAllElectronics();
             for (Electronic electronic : electronics){
                 if (electronic.getName().toLowerCase().contains(query.toLowerCase())){
-                    return electronic;
+                    returnList.add(electronic);
                 }
             }
         }
@@ -171,7 +175,7 @@ public class SearchQuery {
             List<Electronic> electronics = electronicService.getAllElectronics();
             for (Electronic electronic : electronics){
                 if (electronic.getDescription().toLowerCase().contains(query.toLowerCase())){
-                    return electronic;
+                    returnList.add(electronic);
                 }
             }
         }
@@ -180,55 +184,83 @@ public class SearchQuery {
             throw new RuntimeException("Attribute does not exist! "+typeOfSearch);
         }
 
-        return returnedElectronic;
+        return returnList;
     }
 
-    private Furniture furnitureSearch(String query, String typeOfSearch){
-        Furniture returnedFurniture = new Furniture();
-
-        // not yet implemented in Service Layer!!!
+    private List<Furniture> furnitureSearch(String query, String typeOfSearch){
+        List<Furniture> returnList = new ArrayList<>();
 
         if (idAttributes.contains(typeOfSearch.toLowerCase())){
             log.info("Furniture search found the type id. Searching...");
-            //returnedFurniture = furnitureService.fin(Long.valueOf(query));
+            returnList.add(furnitureService.findById(Long.valueOf(query)));
+        }
+        else if (nameAttributes.contains(typeOfSearch.toLowerCase())){
+            List<Furniture> furniture = furnitureService.getAllFurniture();
+            for (Furniture furniture1 : furniture){
+                if (furniture1.getName().toLowerCase().contains(query.toLowerCase())){
+                    returnList.add(furniture1);
+                }
+            }
+        }
+        else if (descriptionAttributes.contains(typeOfSearch.toLowerCase())){
+            List<Furniture> furniture = furnitureService.getAllFurniture();
+            for (Furniture furniture1 : furniture){
+                if (furniture1.getDescription().toLowerCase().contains(query.toLowerCase())){
+                    returnList.add(furniture1);
+                }
+            }
         }
         else {
             log.error("That attribute does not exist!");
             throw new RuntimeException("Attribute does not exist! "+typeOfSearch);
         }
 
-        return returnedFurniture;
+        return returnList;
     }
 
-    private Game gameSearch(String query, String typeOfSearch){
-        Game returnedGame = new Game();
-
-        // not yet implemented in Service Layer!!!
+    private List<Game> gameSearch(String query, String typeOfSearch){
+        List<Game> returnList = new ArrayList<>();
 
         if (idAttributes.contains(typeOfSearch.toLowerCase())){
             log.info("Game search found the type id. Searching...");
-            //returnedGame = gameService.findUserById(Long.valueOf(query));
+            returnList.add(gameService.findById(Long.valueOf(query)));
+        }
+        else if (nameAttributes.contains(typeOfSearch.toLowerCase())){
+            List<Game> games = gameService.getAllGames();
+            for (Game game : games){
+                if (game.getName().toLowerCase().contains(query.toLowerCase())){
+                    returnList.add(game);
+                }
+            }
+        }
+        else if (descriptionAttributes.contains(typeOfSearch.toLowerCase())){
+            List<Game> games = gameService.getAllGames();
+            for (Game game : games){
+                if (game.getDescription().toLowerCase().contains(query.toLowerCase())){
+                    returnList.add(game);
+                }
+            }
         }
         else {
             log.error("That attribute does not exist!");
             throw new RuntimeException("Attribute does not exist! "+typeOfSearch);
         }
 
-        return returnedGame;
+        return returnList;
     }
 
-    private Grocery grocerySearch(String query, String typeOfSearch){
-        Grocery returnedGrocery = new Grocery();
+    private List<Grocery> grocerySearch(String query, String typeOfSearch){
+        List<Grocery> returnList = new ArrayList<>();
 
         if (idAttributes.contains(typeOfSearch.toLowerCase())){
             log.info("Grocery search found the type id. Searching...");
-            returnedGrocery = groceryService.findById(Long.valueOf(query));
+            returnList.add(groceryService.findById(Long.valueOf(query)));
         }
         else if (nameAttributes.contains(typeOfSearch.toLowerCase())){
             List<Grocery> groceries = groceryService.getAllGroceries();
             for (Grocery grocery : groceries){
                 if (grocery.getName().toLowerCase().contains(query.toLowerCase())){
-                    return grocery;
+                    returnList.add(grocery);
                 }
             }
         }
@@ -236,7 +268,7 @@ public class SearchQuery {
             List<Grocery> groceries = groceryService.getAllGroceries();
             for (Grocery grocery : groceries){
                 if (grocery.getDescription().toLowerCase().contains(query.toLowerCase())){
-                    return grocery;
+                    returnList.add(grocery);
                 }
             }
         }
@@ -245,7 +277,7 @@ public class SearchQuery {
             throw new RuntimeException("Attribute does not exist! "+typeOfSearch);
         }
 
-        return returnedGrocery;
+        return returnList;
     }
 
 }
