@@ -1,5 +1,6 @@
 package com.murphy1.inventory.services.impl;
 
+import com.murphy1.inventory.exceptions.NotFoundException;
 import com.murphy1.inventory.model.Furniture;
 import com.murphy1.inventory.repositories.FurnitureRepository;
 import com.murphy1.inventory.services.FurnitureService;
@@ -35,7 +36,7 @@ public class FurnitureServiceImpl implements FurnitureService {
         Optional<Furniture> furnitureOptional = furnitureRepository.findById(id);
 
         if (!furnitureOptional.isPresent()){
-            throw new RuntimeException("Furniture does not exist!");
+            throw new NotFoundException("Furniture does not exist!");
         }
 
         return furnitureOptional.get();

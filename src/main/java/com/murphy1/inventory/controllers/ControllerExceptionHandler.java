@@ -14,11 +14,12 @@ public class ControllerExceptionHandler {
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(NotFoundException.class)
-    public ModelAndView notFound(Exception e){
+    public ModelAndView notFound(Exception exception){
 
-        log.error("Not Found!!! "+e.getMessage());
+        log.error("Not Found!!! "+exception.getMessage());
         ModelAndView mav = new ModelAndView();
-        mav.setViewName("404error");
+        mav.addObject("exception", exception.getMessage());
+        mav.setViewName("exceptions/404error");
 
         return mav;
     }

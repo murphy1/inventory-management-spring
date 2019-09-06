@@ -1,5 +1,6 @@
 package com.murphy1.inventory.services.impl;
 
+import com.murphy1.inventory.exceptions.NotFoundException;
 import com.murphy1.inventory.model.User;
 import com.murphy1.inventory.model.Wallet;
 import com.murphy1.inventory.repositories.UserRepository;
@@ -63,7 +64,7 @@ public class UserServiceImpl implements UserService {
 
         if (!returnedUser.isPresent()){
             log.error("User not found with id: "+id);
-            throw new RuntimeException("User not found!");
+            throw new NotFoundException("User not found!");
         }
 
         return returnedUser.get();

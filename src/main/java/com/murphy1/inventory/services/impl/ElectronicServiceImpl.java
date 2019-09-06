@@ -1,5 +1,6 @@
 package com.murphy1.inventory.services.impl;
 
+import com.murphy1.inventory.exceptions.NotFoundException;
 import com.murphy1.inventory.model.Electronic;
 import com.murphy1.inventory.repositories.ElectronicRepository;
 import com.murphy1.inventory.services.ElectronicService;
@@ -39,7 +40,7 @@ public class ElectronicServiceImpl implements ElectronicService {
 
         if (!returnedElectronic.isPresent()){
             log.error("Electronic does not exist with id: "+id);
-            throw new RuntimeException("Electronic does not exist!");
+            throw new NotFoundException("Electronic does not exist!");
         }
         return returnedElectronic.get();
     }

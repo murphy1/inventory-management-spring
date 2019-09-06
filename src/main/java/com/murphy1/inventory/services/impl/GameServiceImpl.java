@@ -1,5 +1,6 @@
 package com.murphy1.inventory.services.impl;
 
+import com.murphy1.inventory.exceptions.NotFoundException;
 import com.murphy1.inventory.model.Game;
 import com.murphy1.inventory.repositories.GameRepository;
 import com.murphy1.inventory.services.GameService;
@@ -35,7 +36,7 @@ public class GameServiceImpl implements GameService {
         Optional<Game> returnedGame = gameRepository.findById(id);
 
         if (!returnedGame.isPresent()){
-            throw new RuntimeException("Game does not exist!");
+            throw new NotFoundException("Game does not exist!");
         }
 
         return returnedGame.get();

@@ -1,5 +1,6 @@
 package com.murphy1.inventory.services.impl;
 
+import com.murphy1.inventory.exceptions.NotFoundException;
 import com.murphy1.inventory.model.Grocery;
 import com.murphy1.inventory.repositories.GroceryRepository;
 import com.murphy1.inventory.services.GroceryService;
@@ -42,7 +43,7 @@ public class GroceryServiceImpl implements GroceryService {
         Optional<Grocery> returnedGrocery = groceryRepository.findById(id);
 
         if (!returnedGrocery.isPresent()){
-            throw new RuntimeException("Grocery does not exist!");
+            throw new NotFoundException("Grocery does not exist!");
         }
 
         return returnedGrocery.get();
