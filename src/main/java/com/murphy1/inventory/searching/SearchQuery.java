@@ -1,5 +1,7 @@
 package com.murphy1.inventory.searching;
 
+import com.murphy1.inventory.exceptions.NoSuchElementException;
+import com.murphy1.inventory.exceptions.NotFoundException;
 import com.murphy1.inventory.model.*;
 import com.murphy1.inventory.services.*;
 import lombok.extern.slf4j.Slf4j;
@@ -91,7 +93,7 @@ public class SearchQuery {
             returnString = "user"+" "+query+" "+type;
         } else{
             log.error("Object not found! -> ObjectSearchType");
-            throw new RuntimeException("Object does not exist!");
+            throw new NotFoundException("Object does not exist!");
         }
 
         return returnString;
@@ -132,11 +134,13 @@ public class SearchQuery {
         List<User> returnList = new ArrayList<>();
 
         if (idAttributes.contains(typeOfSearch.toLowerCase())){
-            //todo catch NumberFormatException error if a String is entered when searching for an ID
-
             log.info("Person search found the type id. Searching...");
-            //returnedUser = userService.findUserById(Long.valueOf(query));
-            returnList.add(userService.findUserById(Long.valueOf(query)));
+            try {
+                returnList.add(userService.findUserById(Long.valueOf(query)));
+            }catch (NumberFormatException e){
+                log.error("ID field has to be a number!");
+                throw new NoSuchElementException("ID field has to be a number!");
+            }
         }
         else if (nameAttributes.contains(typeOfSearch.toLowerCase())){
             List<User> users = userService.getAllUsers();
@@ -144,13 +148,12 @@ public class SearchQuery {
                 if (user.getFirstName().toLowerCase().contains(query.toLowerCase()) ||
                         user.getLastName().toLowerCase().contains(query.toLowerCase())){
                     returnList.add(user);
-                    //return user;
                 }
             }
         }
         else {
             log.error("That attribute does not exist!");
-            throw new RuntimeException("Attribute does not exist! "+typeOfSearch);
+            throw new NotFoundException("Attribute does not exist! "+typeOfSearch);
         }
 
         return returnList;
@@ -161,7 +164,12 @@ public class SearchQuery {
 
         if (idAttributes.contains(typeOfSearch.toLowerCase())){
             log.info("Electronic search found the type id. Searching...");
-            returnList.add(electronicService.findById(Long.valueOf(query)));
+            try {
+                returnList.add(electronicService.findById(Long.valueOf(query)));
+            }catch (NumberFormatException e){
+                log.error("ID field has to be a number!");
+                throw new NoSuchElementException("ID field has to be a number!");
+            }
         }
         else if (nameAttributes.contains(typeOfSearch.toLowerCase())){
             List<Electronic> electronics = electronicService.getAllElectronics();
@@ -181,7 +189,7 @@ public class SearchQuery {
         }
         else {
             log.error("That attribute does not exist!");
-            throw new RuntimeException("Attribute does not exist! "+typeOfSearch);
+            throw new NotFoundException("Attribute does not exist! "+typeOfSearch);
         }
 
         return returnList;
@@ -192,7 +200,12 @@ public class SearchQuery {
 
         if (idAttributes.contains(typeOfSearch.toLowerCase())){
             log.info("Furniture search found the type id. Searching...");
-            returnList.add(furnitureService.findById(Long.valueOf(query)));
+            try {
+                returnList.add(furnitureService.findById(Long.valueOf(query)));
+            }catch (NumberFormatException e){
+                log.error("ID field has to be a number!");
+                throw new NoSuchElementException("ID field has to be a number!");
+            }
         }
         else if (nameAttributes.contains(typeOfSearch.toLowerCase())){
             List<Furniture> furniture = furnitureService.getAllFurniture();
@@ -212,7 +225,7 @@ public class SearchQuery {
         }
         else {
             log.error("That attribute does not exist!");
-            throw new RuntimeException("Attribute does not exist! "+typeOfSearch);
+            throw new NotFoundException("Attribute does not exist! "+typeOfSearch);
         }
 
         return returnList;
@@ -223,7 +236,12 @@ public class SearchQuery {
 
         if (idAttributes.contains(typeOfSearch.toLowerCase())){
             log.info("Game search found the type id. Searching...");
-            returnList.add(gameService.findById(Long.valueOf(query)));
+            try {
+                returnList.add(gameService.findById(Long.valueOf(query)));
+            }catch (NumberFormatException e){
+                log.error("ID field has to be a number!");
+                throw new NoSuchElementException("ID field has to be a number!");
+            }
         }
         else if (nameAttributes.contains(typeOfSearch.toLowerCase())){
             List<Game> games = gameService.getAllGames();
@@ -243,7 +261,7 @@ public class SearchQuery {
         }
         else {
             log.error("That attribute does not exist!");
-            throw new RuntimeException("Attribute does not exist! "+typeOfSearch);
+            throw new NotFoundException("Attribute does not exist! "+typeOfSearch);
         }
 
         return returnList;
@@ -254,7 +272,12 @@ public class SearchQuery {
 
         if (idAttributes.contains(typeOfSearch.toLowerCase())){
             log.info("Grocery search found the type id. Searching...");
-            returnList.add(groceryService.findById(Long.valueOf(query)));
+            try {
+                returnList.add(groceryService.findById(Long.valueOf(query)));
+            }catch (NumberFormatException e){
+                log.error("ID field has to be a number!");
+                throw new NoSuchElementException("ID field has to be a number!");
+            }
         }
         else if (nameAttributes.contains(typeOfSearch.toLowerCase())){
             List<Grocery> groceries = groceryService.getAllGroceries();
@@ -274,7 +297,7 @@ public class SearchQuery {
         }
         else {
             log.error("That attribute does not exist!");
-            throw new RuntimeException("Attribute does not exist! "+typeOfSearch);
+            throw new NotFoundException("Attribute does not exist! "+typeOfSearch);
         }
 
         return returnList;

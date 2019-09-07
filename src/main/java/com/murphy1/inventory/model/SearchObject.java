@@ -2,6 +2,7 @@ package com.murphy1.inventory.model;
 
 import javax.persistence.Lob;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 public class SearchObject {
 
@@ -9,9 +10,11 @@ public class SearchObject {
     private String query;
 
     @NotNull
+    @Size(min = 1, max = 20)
     private String searchObjectForSearch;
 
     @NotNull
+    @Size(min = 1, max = 20)
     private String searchType;
 
     public String getQuery() {

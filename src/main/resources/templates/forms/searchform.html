@@ -17,6 +17,11 @@
                         <div class="panel-heading">
                             <h1 class="panel-title">Search for Anything! Users, Groceries...</h1>
                         </div>
+
+                        <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
+                            <p>Please fix the below errors!</p>
+                        </div>
+
                         <div class="panel-body">
 
                             <input type="hidden">
@@ -28,14 +33,26 @@
                                     <input type="text" class="form-control" th:field="*{query}"/>
                                 </div>
 
-                                <div class="col-md-3 form-group">
+                                <div class="col-md-3 form-group" th:class="${#fields.hasErrors('searchObjectForSearch')}?
+                                    'col-md-3 form-group has-error' : 'col-md-3 form-group'">
                                     <label>What are you looking for? (A Person, Grocery, Game?):</label>
-                                    <input type="text" class="form-control" th:field="*{searchObjectForSearch}"/>
+                                    <input type="text" class="form-control" th:field="*{searchObjectForSearch}" th:errorclass="has-error"/>
+                                    <span class="help-block" th:if="${#fields.hasErrors('searchObjectForSearch')}">
+                                        <ul>
+                                            <li th:each="err : ${#fields.errors('searchObjectForSearch')}" th:text="${err}"></li>
+                                        </ul>
+                                    </span>
                                 </div>
 
-                                <div class="col-md-3 form-group">
+                                <div class="col-md-3 form-group" th:class="${#fields.hasErrors('searchType')}?
+                                    'col-md-3 form-group has-error' : 'col-md-3 form-group'">
                                     <label>How do you want to search? (By Name, ID, Description?):</label>
-                                    <input type="text" class="form-control" th:field="*{searchType}"/>
+                                    <input type="text" class="form-control" th:field="*{searchType}" th:errorclass="has-error"/>
+                                    <span class="help-block" th:if="${#fields.hasErrors('searchType')}">
+                                        <ul>
+                                            <li th:each="err : ${#fields.errors('searchType')}" th:text="${err}"></li>
+                                        </ul>
+                                    </span>
                                 </div>
 
                             </div>

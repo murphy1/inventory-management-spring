@@ -5,9 +5,11 @@ import com.murphy1.inventory.searching.SearchQuery;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Slf4j
@@ -66,7 +68,14 @@ public class SearchController {
     }
 
     @GetMapping("/search/newsearch")
-    public String returnSearch(@ModelAttribute SearchObject searchObject, Model model){
+    public String returnSearch(@Valid @ModelAttribute("searchObject") SearchObject searchObject, BindingResult bindingResult){
+
+        if (bindingResult.hasErrors()){
+            bindingResult.getAllErrors().forEach(objectError ->
+                    log.debug(objectError.toString())
+            );
+            return "forms/searchform";
+        }
 
         // gets the object -> User, Grocery ...
         String returnedString = searchQuery.objectSearchType(searchObject.getSearchObjectForSearch(), searchObject.getQuery(), searchObject.getSearchType());
