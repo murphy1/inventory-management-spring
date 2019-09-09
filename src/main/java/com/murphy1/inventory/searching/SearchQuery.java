@@ -184,7 +184,7 @@ public class SearchQuery {
         else if (nameAttributes.contains(typeOfSearch.toLowerCase())){
             List<Electronic> electronics = electronicService.getAllElectronics();
             for (Electronic electronic : electronics){
-                if (electronic.getName().toLowerCase().contains(query.toLowerCase())){
+                if (electronic.getName().strip().toLowerCase().contains(query.strip().toLowerCase())){
                     returnList.add(electronic);
                 }
             }
@@ -192,7 +192,7 @@ public class SearchQuery {
         else if (descriptionAttributes.contains(typeOfSearch.toLowerCase())){
             List<Electronic> electronics = electronicService.getAllElectronics();
             for (Electronic electronic : electronics){
-                if (electronic.getDescription().toLowerCase().contains(query.toLowerCase())){
+                if (electronic.getDescription().strip().toLowerCase().contains(query.strip().toLowerCase())){
                     returnList.add(electronic);
                 }
             }
@@ -220,7 +220,7 @@ public class SearchQuery {
         else if (nameAttributes.contains(typeOfSearch.toLowerCase())){
             List<Furniture> furniture = furnitureService.getAllFurniture();
             for (Furniture furniture1 : furniture){
-                if (furniture1.getName().toLowerCase().contains(query.toLowerCase())){
+                if (furniture1.getName().strip().toLowerCase().contains(query.strip().toLowerCase())){
                     returnList.add(furniture1);
                 }
             }
@@ -228,7 +228,7 @@ public class SearchQuery {
         else if (descriptionAttributes.contains(typeOfSearch.toLowerCase())){
             List<Furniture> furniture = furnitureService.getAllFurniture();
             for (Furniture furniture1 : furniture){
-                if (furniture1.getDescription().toLowerCase().contains(query.toLowerCase())){
+                if (furniture1.getDescription().strip().toLowerCase().contains(query.strip().toLowerCase())){
                     returnList.add(furniture1);
                 }
             }
@@ -256,7 +256,8 @@ public class SearchQuery {
         else if (nameAttributes.contains(typeOfSearch.toLowerCase())){
             List<Game> games = gameService.getAllGames();
             for (Game game : games){
-                if (game.getName().toLowerCase().contains(query.toLowerCase())){
+                if (game.getName().strip().toLowerCase().contains(query.strip().toLowerCase())
+                    || game.getName().strip().toLowerCase().equals(query.strip().toLowerCase()) ){
                     returnList.add(game);
                 }
             }
@@ -264,7 +265,7 @@ public class SearchQuery {
         else if (descriptionAttributes.contains(typeOfSearch.toLowerCase())){
             List<Game> games = gameService.getAllGames();
             for (Game game : games){
-                if (game.getDescription().toLowerCase().contains(query.toLowerCase())){
+                if (game.getDescription().strip().toLowerCase().contains(query.strip().toLowerCase())){
                     returnList.add(game);
                 }
             }
@@ -292,7 +293,7 @@ public class SearchQuery {
         else if (nameAttributes.contains(typeOfSearch.toLowerCase())){
             List<Grocery> groceries = groceryService.getAllGroceries();
             for (Grocery grocery : groceries){
-                if (grocery.getName().toLowerCase().contains(query.toLowerCase())){
+                if (grocery.getName().strip().toLowerCase().contains(query.strip().toLowerCase())){
                     returnList.add(grocery);
                 }
             }
@@ -300,7 +301,7 @@ public class SearchQuery {
         else if (descriptionAttributes.contains(typeOfSearch.toLowerCase())){
             List<Grocery> groceries = groceryService.getAllGroceries();
             for (Grocery grocery : groceries){
-                if (grocery.getDescription().toLowerCase().contains(query.toLowerCase())){
+                if (grocery.getDescription().strip().toLowerCase().contains(query.strip().toLowerCase())){
                     returnList.add(grocery);
                 }
             }

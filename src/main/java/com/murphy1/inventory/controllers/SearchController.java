@@ -1,5 +1,6 @@
 package com.murphy1.inventory.controllers;
 
+import com.murphy1.inventory.exceptions.NoSuchElementException;
 import com.murphy1.inventory.model.SearchObject;
 import com.murphy1.inventory.searching.SearchQuery;
 import lombok.extern.slf4j.Slf4j;
@@ -69,6 +70,7 @@ public class SearchController {
 
     @GetMapping("/search/newsearch")
     public String returnSearch(@Valid @ModelAttribute("searchObject") SearchObject searchObject, BindingResult bindingResult){
+        String query = "";
 
         if (bindingResult.hasErrors()){
             bindingResult.getAllErrors().forEach(objectError ->
@@ -86,9 +88,9 @@ public class SearchController {
 
         // array has length of 3 when there is one word in the query
         if (stringForDelegation.length == 3){
+            query = stringForDelegation[1];
             returnedObject = searchQuery.searchDelegater(stringForDelegation[0], stringForDelegation[1], attribute);
         }else{
-            String query = "";
             int count = 1;
             while (count < (stringForDelegation.length - 1)){
                 query +=stringForDelegation[count]+" ";
@@ -98,6 +100,9 @@ public class SearchController {
         }
 
         // object to be passed to the results page.
+        if (returnedObject.isEmpty()){
+            throw new NoSuchElementException(query+" does not exist!");
+        }
         String[] stringArray = returnedObject.stream().findFirst().get().getClass().getName().split("model.");
         objectForResults = stringArray[1].toLowerCase();
 
