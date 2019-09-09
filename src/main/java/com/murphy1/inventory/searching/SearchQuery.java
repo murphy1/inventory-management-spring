@@ -7,10 +7,7 @@ import com.murphy1.inventory.services.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Slf4j
 @Component
@@ -43,7 +40,7 @@ public class SearchQuery {
         descriptionAttributes.add("description");
     }
 
-    public String objectSearchType(String objectToCheck, String query, String type){
+    public String objectSearchType(String objectToCheck, List query, String type){
         Set<String> electronics = new HashSet<>();
         Set<String> furniture = new HashSet<>();
         Set<String> games = new HashSet<>();
@@ -76,21 +73,26 @@ public class SearchQuery {
 
         String returnString = "";
 
+        String queryToCheck = "";
+        for (Object s : query){
+            queryToCheck += s;
+        }
+
         if (electronics.contains(objectToCheck)){
             log.info("Electronic found creating new return String");
-            returnString = "electronic"+" "+query+" "+type;
+            returnString = "electronic"+" "+ queryToCheck +" "+type;
         } else if (furniture.contains(objectToCheck)){
             log.info("Furniture found creating new return String");
-            returnString = "furniture"+" "+query+" "+type;
+            returnString = "furniture"+" "+ queryToCheck +" "+type;
         } else if (games.contains(objectToCheck)){
             log.info("Game found creating new return String");
-            returnString = "game"+" "+query+" "+type;
+            returnString = "game"+" "+ queryToCheck +" "+type;
         } else if (groceries.contains(objectToCheck)){
             log.info("Grocery found creating new return String");
-            returnString = "grocery"+" "+query+" "+type;
+            returnString = "grocery"+" "+ queryToCheck +" "+type;
         } else if (users.contains(objectToCheck)){
             log.info("user found creating new return String");
-            returnString = "user"+" "+query+" "+type;
+            returnString = "user"+" "+ queryToCheck +" "+type;
         } else{
             log.error("Object not found! -> ObjectSearchType");
             throw new NotFoundException("Object does not exist!");
@@ -145,9 +147,17 @@ public class SearchQuery {
         else if (nameAttributes.contains(typeOfSearch.toLowerCase())){
             List<User> users = userService.getAllUsers();
             for (User user : users){
-                if (user.getFirstName().toLowerCase().contains(query.toLowerCase()) ||
-                        user.getLastName().toLowerCase().contains(query.toLowerCase())){
-                    returnList.add(user);
+                String[] queryCount = query.split(" ");
+
+                if (queryCount.length > 1){
+                    if (user.getFirstName().toLowerCase().contains(query.split(" ")[0].toLowerCase()) &&
+                            user.getLastName().toLowerCase().contains(query.split(" ")[1].strip().toLowerCase())){
+                        returnList.add(user);
+                    }
+                }else if (queryCount.length == 1){
+                    if (user.getFirstName().toLowerCase().contains(query) || user.getLastName().toLowerCase().contains(query)){
+                        returnList.add(user);
+                    }
                 }
             }
         }

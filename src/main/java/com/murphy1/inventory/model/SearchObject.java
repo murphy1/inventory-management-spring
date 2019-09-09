@@ -3,11 +3,12 @@ package com.murphy1.inventory.model;
 import javax.persistence.Lob;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 public class SearchObject {
 
     @Lob
-    private String query;
+    private List query;
 
     @NotNull
     @Size(min = 1, max = 20)
@@ -17,11 +18,11 @@ public class SearchObject {
     @Size(min = 1, max = 20)
     private String searchType;
 
-    public String getQuery() {
+    public List getQuery() {
         return query;
     }
 
-    public void setQuery(String query) {
+    public void setQuery(List query) {
         this.query = query;
     }
 

@@ -82,7 +82,20 @@ public class SearchController {
 
         // splits the string for the delgation method and return the required object
         String[] stringForDelegation = returnedString.split(" ");
-        returnedObject = searchQuery.searchDelegater(stringForDelegation[0], stringForDelegation[1], stringForDelegation[2]);
+        String attribute = stringForDelegation[stringForDelegation.length - 1];
+
+        // array has length of 3 when there is one word in the query
+        if (stringForDelegation.length == 3){
+            returnedObject = searchQuery.searchDelegater(stringForDelegation[0], stringForDelegation[1], attribute);
+        }else{
+            String query = "";
+            int count = 1;
+            while (count < (stringForDelegation.length - 1)){
+                query +=stringForDelegation[count]+" ";
+                count++;
+            }
+            returnedObject = searchQuery.searchDelegater(stringForDelegation[0], query, attribute);
+        }
 
         // object to be passed to the results page.
         String[] stringArray = returnedObject.stream().findFirst().get().getClass().getName().split("model.");
