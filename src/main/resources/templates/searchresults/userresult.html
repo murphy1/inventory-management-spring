@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/formlayout :: formlayout (~{::body},'templates')}">
 <head>
     <meta charset="UTF-8">
     <title>User Results</title>
@@ -31,7 +31,6 @@
                         </tbody>
                     </table>
                 </div>
-                <a href="/user/new" class="btn btn-info" role="button">Add a User</a><br>
             </div>
         </div>
     </div>

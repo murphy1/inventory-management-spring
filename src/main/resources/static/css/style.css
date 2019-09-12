@@ -6,16 +6,12 @@ html, body{
     color: #222222;
 }
 
-
 .navbar {
     color: white;
 }
 
-footer {
-    border: 8rem;
-    background-color: antiquewhite;
-    padding-top: 2rem;
-    color: black;
+.lead {
+    color: white;
 }
 
 hr.light {
@@ -36,6 +32,10 @@ hr.light {
     box-shadow: 0 8px 16px 0 rgba(0,0,0,1);
 }
 
+.h5 {
+    color: black;
+}
+
 .container {
     padding: 2px 16px;
 }
@@ -46,12 +46,43 @@ hr.light {
 
 .btn {
     background-color: dimgrey;
-    color: #222222;
+    color: white;
+}
+
+/* CSS for carousel */
+
+.carousel-item {
+    height: 400px;
+}
+
+/* CSS for footer */
+
+footer {
+    border: 8rem;
+    background-color: white;
+    padding-top: 2rem;
+    color: black;
+}
+
+a {
+    color: black;
 }
 
 /* CSS for user.html */
 
 .btn-info {
+    background-color: lightgray;
+    color: #222222;
+}
+
+/* CSS for forms */
+
+.form-label {
+    color: black;
+    padding: auto;
+}
+
+.btn-search {
     background-color: lightgray;
     color: #222222;
 }
