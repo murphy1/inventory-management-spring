@@ -3,12 +3,14 @@ package com.murphy1.inventory.bootstrap;
 import com.murphy1.inventory.model.*;
 import com.murphy1.inventory.repositories.*;
 import org.springframework.context.ApplicationListener;
+import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 
 @Component
+@Profile("default")
 public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
 
     private GameRepository gameRepository;
