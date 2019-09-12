@@ -78,19 +78,19 @@ public class SearchQuery {
             queryToCheck += s;
         }
 
-        if (electronics.contains(objectToCheck)){
+        if (electronics.contains(objectToCheck.toLowerCase())){
             log.info("Electronic found creating new return String");
             returnString = "electronic"+" "+ queryToCheck +" "+type;
-        } else if (furniture.contains(objectToCheck)){
+        } else if (furniture.contains(objectToCheck.toLowerCase())){
             log.info("Furniture found creating new return String");
             returnString = "furniture"+" "+ queryToCheck +" "+type;
-        } else if (games.contains(objectToCheck)){
+        } else if (games.contains(objectToCheck.toLowerCase())){
             log.info("Game found creating new return String");
             returnString = "game"+" "+ queryToCheck +" "+type;
-        } else if (groceries.contains(objectToCheck)){
+        } else if (groceries.contains(objectToCheck.toLowerCase())){
             log.info("Grocery found creating new return String");
             returnString = "grocery"+" "+ queryToCheck +" "+type;
-        } else if (users.contains(objectToCheck)){
+        } else if (users.contains(objectToCheck.toLowerCase())){
             log.info("user found creating new return String");
             returnString = "user"+" "+ queryToCheck +" "+type;
         } else{
@@ -106,28 +106,23 @@ public class SearchQuery {
 
         if (object.equals("electronic")){
             log.info("Search delegater found electronic. Sending to electronic search.");
-            List<Electronic> electronic = electronicSearch(query, type);
-            return electronic;
+            return electronicSearch(query, type);
         }
         if (object.equals("furniture")){
             log.info("Search delegater found furniture. Sending to furniture search.");
-            List<Furniture> furniture = furnitureSearch(query, type);
-            return furniture;
+            return furnitureSearch(query, type);
         }
         if (object.equals("game")){
             log.info("Search delegater found game. Sending to game search.");
-            List<Game> game = gameSearch(query, type);
-            return game;
+            return gameSearch(query, type);
         }
         if (object.equals("grocery")){
             log.info("Search delegater found grocery. Sending to grocery search.");
-            List<Grocery> grocery = grocerySearch(query, type);
-            return grocery;
+            return grocerySearch(query, type);
         }
         if (object.equals("user")){
             log.info("Search delegater found user. Sending to person search.");
-            List<User> user = personSearch(query, type);
-            return user;
+            return personSearch(query, type);
         }
         return null;
     }
