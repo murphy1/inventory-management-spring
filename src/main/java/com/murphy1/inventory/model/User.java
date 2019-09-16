@@ -1,10 +1,14 @@
 package com.murphy1.inventory.model;
 
+import org.springframework.security.core.GrantedAuthority;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Entity
+@Table(name = "user")
 public class User extends BaseEntity{
 
     @NotNull
@@ -18,6 +22,10 @@ public class User extends BaseEntity{
     @NotNull
     @Size(min = 3, max = 50)
     private String username;
+
+    private String password;
+    private boolean active;
+    private String roles;
 
     @OneToOne(cascade = CascadeType.ALL)
     private Wallet wallet;
@@ -46,12 +54,36 @@ public class User extends BaseEntity{
         this.username = username;
     }
 
-    public Wallet getWallet() {
-        return wallet;
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public String getRoles() {
+        return roles;
+    }
+
+    public void setRoles(String roles) {
+        this.roles = roles;
     }
 
     public void setWallet(Wallet wallet) {
         this.wallet = wallet;
         wallet.setUser(this);
+    }
+
+    public Wallet getWallet() {
+        return wallet;
     }
 }
