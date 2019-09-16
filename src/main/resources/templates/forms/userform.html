@@ -97,6 +97,39 @@
                                         </ul>
                                     </span>
                                 </div>
+
+                                <div class="col-md-3 form-group" th:class="${#fields.hasErrors('password')} ?
+                                    'col-md-3 form-group has-error' : 'col-md-3 form-group'">
+                                    <label>Password:</label>
+                                    <input type="text" class="form-control" th:field="*{password}" th:errorclass="has-error"/>
+                                    <span class="help-block" th:if="${#fields.hasErrors('password')}">
+                                        <ul>
+                                            <li th:each="err : ${#fields.errors('password')}" th:text="${err}"></li>
+                                        </ul>
+                                    </span>
+                                </div>
+
+                                <div class="col-md-3 form-group" th:class="${#fields.hasErrors('active')} ?
+                                    'col-md-3 form-group has-error' : 'col-md-3 form-group'">
+                                    <label>Account Active:</label>
+                                    <input type="text" class="form-control" th:field="*{active}" th:errorclass="has-error"/>
+                                    <span class="help-block" th:if="${#fields.hasErrors('active')}">
+                                        <ul>
+                                            <li th:each="err : ${#fields.errors('active')}" th:text="${err}"></li>
+                                        </ul>
+                                    </span>
+                                </div>
+
+                                <div class="col-md-3 form-group" th:class="${#fields.hasErrors('roles')} ?
+                                    'col-md-3 form-group has-error' : 'col-md-3 form-group'">
+                                    <label>Roles:</label>
+                                    <input type="text" class="form-control" th:field="*{roles}" th:errorclass="has-error"/>
+                                    <span class="help-block" th:if="${#fields.hasErrors('roles')}">
+                                        <ul>
+                                            <li th:each="err : ${#fields.errors('roles')}" th:text="${err}"></li>
+                                        </ul>
+                                    </span>
+                                </div>
                             </div>
                         </div>
                     </div>

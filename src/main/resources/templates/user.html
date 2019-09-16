@@ -19,6 +19,9 @@
                             <th scope="col">First Name</th>
                             <th scope="col">Last Name</th>
                             <th scope="col">Username</th>
+                            <th scope="col">Password</th>
+                            <th scope="col">Account Active</th>
+                            <th scope="col">Roles</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -27,6 +30,9 @@
                             <td th:text="${item.firstName}">Otto</td>
                             <td th:text="${item.lastName}">Otto</td>
                             <td th:text="${item.username}">Otto</td>
+                            <td th:text="${item.password}">Otto</td>
+                            <td th:text="${item.active}">Otto</td>
+                            <td th:text="${item.roles}">Otto</td>
                             <td><a href="#" th:href="@{'/user/update/'+ ${item.id}}" class="btn btn-info" role="button">Update</a></td>
                             <td><a href="#" th:href="@{'/user/delete/'+ ${item.id}}" class="btn btn-info" role="button">Delete</a></td>
                         </tr>

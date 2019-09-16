@@ -29,6 +29,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/games").hasAnyAuthority("ADMIN", "USER")
                 .antMatchers("/electronics").hasAnyAuthority("ADMIN", "USER")
                 .antMatchers("/furniture").hasAnyAuthority("ADMIN", "USER")
+                .antMatchers("/search").hasAnyAuthority("ADMIN", "USER")
                 .antMatchers("/").permitAll()
                 .and().formLogin();
     }
