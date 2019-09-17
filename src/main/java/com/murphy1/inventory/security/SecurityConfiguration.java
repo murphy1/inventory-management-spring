@@ -26,11 +26,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/users").hasAuthority("ADMIN")
-                .antMatchers("/groceries").hasAnyAuthority("ADMIN", "USER")
-                .antMatchers("/games").hasAnyAuthority("ADMIN", "USER")
-                .antMatchers("/electronics").hasAnyAuthority("ADMIN", "USER")
-                .antMatchers("/furniture").hasAnyAuthority("ADMIN", "USER")
-                .antMatchers("/search").hasAnyAuthority("ADMIN", "USER")
+                .antMatchers("/update/wallet/*").hasAnyAuthority("ADMIN", "FINANCE")
+                .antMatchers("/groceries").hasAnyAuthority("ADMIN", "FINANCE", "USER")
+                .antMatchers("/games").hasAnyAuthority("ADMIN", "FINANCE", "USER")
+                .antMatchers("/electronics").hasAnyAuthority("ADMIN", "FINANCE", "USER")
+                .antMatchers("/furniture").hasAnyAuthority("ADMIN", "FINANCE", "USER")
+                .antMatchers("/search").hasAnyAuthority("ADMIN", "FINANCE", "USER")
                 .antMatchers("/").permitAll()
                 .and().formLogin().loginPage("/login");
 

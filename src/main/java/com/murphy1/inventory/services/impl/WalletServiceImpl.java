@@ -6,6 +6,7 @@ import com.murphy1.inventory.repositories.UserRepository;
 import com.murphy1.inventory.repositories.WalletRepository;
 import com.murphy1.inventory.services.WalletService;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -44,5 +45,24 @@ public class WalletServiceImpl implements WalletService {
         walletRepository.save(wallet);
 
         return wallet;
+    }
+
+    public boolean financeRole(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Optional<Boolean> roles = authentication.getAuthorities().stream()
+                .map(role -> ((GrantedAuthority) role).getAuthority().equals("ADMIN") || ((GrantedAuthority) role).getAuthority().equals("FINANCE"))
+                .findFirst();
+
+        if (roles.get() == true){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public Wallet getWalletById(Long id){
+        Optional<Wallet> wallet = walletRepository.findById(id);
+
+        return wallet.get();
     }
 }

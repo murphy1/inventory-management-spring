@@ -15,17 +15,21 @@
                     <table class="table">
                         <thead>
                         <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Username</th>
                             <th scope="col">Balance</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr th:each="item : ${wallet}">
+                            <td th:text="${item.User.id}">100</td>
+                            <td th:text="${item.User.username}">100</td>
                             <td th:text="${item.balance}">100</td>
+                            <td><a href="#" th:href="@{'/update/wallet/'+ ${item.id}}" class="btn btn-info" role="button">Admin (Finance User)</a></td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
-                <a href="/update/wallet" class="btn btn-info" role="button">Add Funds</a><br>
             </div>
         </div>
     </div>

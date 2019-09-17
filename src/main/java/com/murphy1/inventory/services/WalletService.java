@@ -7,5 +7,7 @@ import java.util.List;
 public interface WalletService {
     List<Wallet> getAllWallets();
     Wallet getWalletByPrincipal();
+    Wallet getWalletById(Long id);
     Wallet save(Wallet wallet);
+    boolean financeRole();
 }

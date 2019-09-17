@@ -53,12 +53,53 @@
 <div class="container-fluid" style="margin-top: 20px">
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
-            <form  th:object="${wallet}" th:action="@{/update/balance} " method="post">
+            <form  th:object="${wallet}" th:action="@{/update/balancedeposit} " method="post">
 
                 <div class="pannel-group">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
-                            <h1 class="panel-title">Update Wallet</h1>
+                            <h1 class="panel-title">Deposit</h1>
+                        </div>
+
+                        <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
+                            <p>Please fix the below errors!</p>
+                        </div>
+
+                        <div class="panel-body">
+
+                            <input type="hidden" th:field="*{id}">
+
+
+                            <div class="row">
+                                <div class="col-md-3 form-group" th:class="${#fields.hasErrors('balance')} ?
+                                    'col-md-3 form-group has-error' : 'col-md-3 form-group'">
+                                    <label>Deposit Funds:</label>
+                                    <input type="text" class="form-control" th:field="*{balance}" th:errorclass="has-error"/>
+                                    <span class="help-block" th:if="${#fields.hasErrors('balance')}">
+                                        <ul>
+                                            <li th:each="err : ${#fields.errors('balance')}" th:text="${err}"></li>
+                                        </ul>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid" style="margin-top: 20px">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <form  th:object="${wallet}" th:action="@{/update/balancewithdraw} " method="post">
+
+                <div class="pannel-group">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h1 class="panel-title">Withdraw</h1>
                         </div>
 
                         <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
