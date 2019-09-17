@@ -23,7 +23,14 @@ public class User extends BaseEntity{
     @Size(min = 3, max = 50)
     private String username;
 
+    @NotNull
+    @Size(min = 5, max = 100)
     private String password;
+
+    @NotNull
+    @Size(min = 5, max = 100)
+    private String passwordCheck;
+
     private boolean active;
     private String roles;
 
@@ -60,6 +67,14 @@ public class User extends BaseEntity{
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getPasswordCheck() {
+        return passwordCheck;
+    }
+
+    public void setPasswordCheck(String passwordCheck) {
+        this.passwordCheck = passwordCheck;
     }
 
     public boolean isActive() {

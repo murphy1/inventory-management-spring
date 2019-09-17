@@ -64,4 +64,36 @@ public class UserController {
         return "redirect:/users.html";
     }
 
+    @GetMapping("login")
+    public String login(){
+        return "inventorylogin";
+    }
+
+    @GetMapping("logout")
+    public String logout(){
+        return "inventorylogin";
+    }
+
+    @RequestMapping("user/signup")
+    public String newSignup(Model model){
+        model.addAttribute("user", new User());
+
+        return "forms/signupform";
+    }
+
+    @PostMapping("user/new/signup")
+    public String signup(@Valid @ModelAttribute("user") User user, BindingResult bindingResult){
+
+        if (bindingResult.hasErrors()){
+            bindingResult.getAllErrors().forEach(objectError ->
+                    log.debug(objectError.toString())
+            );
+            return "forms/signupform";
+        }
+
+        userService.saveUser(user);
+
+        return "redirect:/";
+    }
+
 }

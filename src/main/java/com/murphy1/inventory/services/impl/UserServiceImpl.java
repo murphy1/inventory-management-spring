@@ -1,5 +1,6 @@
 package com.murphy1.inventory.services.impl;
 
+import com.murphy1.inventory.exceptions.BadRequestException;
 import com.murphy1.inventory.exceptions.NotFoundException;
 import com.murphy1.inventory.model.User;
 import com.murphy1.inventory.model.Wallet;
@@ -37,6 +38,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public User saveUser(User user) {
 
+        if (!user.getPassword().equals(user.getPasswordCheck())){
+            throw new BadRequestException("Passwords do not match!");
+        }
+
         Long idCheck = user.getId();
 
         if (idCheck == null){
@@ -45,6 +50,8 @@ public class UserServiceImpl implements UserService {
             wallet.setBalance(0.0);
             walletRepository.save(wallet);
             user.setWallet(wallet);
+            user.setRoles("USER");
+            user.setActive(true);
         }else{
             for (Wallet wallet : walletRepository.findAll()){
                 if (wallet.getUser().getId().equals(user.getId())){
