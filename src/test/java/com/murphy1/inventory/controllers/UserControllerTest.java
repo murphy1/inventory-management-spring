@@ -102,6 +102,10 @@ class UserControllerTest {
                 .param("firstName", "string")
                 .param("lastName", "string")
                 .param("username", "string")
+                .param("password", "string")
+                .param("passwordCheck", "string")
+                .param("active", "true")
+                .param("roles", "string")
         )
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/users.html"));

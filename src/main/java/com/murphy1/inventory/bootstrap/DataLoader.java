@@ -82,6 +82,10 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
         user1.setFirstName("John");
         user1.setLastName("Doe");
         user1.setUsername("jd12345");
+        user1.setPassword("password");
+        user1.setPasswordCheck("password");
+        user1.setActive(true);
+        user1.setRoles("USER");
         user1.setWallet(new Wallet(300.0));
         userRepository.save(user1);
 
@@ -89,6 +93,10 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
         user2.setFirstName("Jane");
         user2.setLastName("Doe");
         user2.setUsername("doe12");
+        user2.setPassword("password");
+        user2.setPasswordCheck("password");
+        user2.setActive(true);
+        user2.setRoles("USER");
         user2.setWallet(new Wallet(212.0));
         userRepository.save(user2);
 
