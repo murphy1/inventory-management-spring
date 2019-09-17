@@ -30,9 +30,9 @@ class ElectronicControllerTest {
     @Mock
     Model model;
 
-    ElectronicController electronicController;
+    private ElectronicController electronicController;
 
-    MockMvc mockMvc;
+    private MockMvc mockMvc;
 
     @BeforeEach
     void setUp() {

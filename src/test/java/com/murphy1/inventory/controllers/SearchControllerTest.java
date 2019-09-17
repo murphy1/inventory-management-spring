@@ -9,6 +9,10 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindException;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -24,9 +28,9 @@ class SearchControllerTest {
     @Mock
     Model model;
 
-    SearchController searchController;
+    private SearchController searchController;
 
-    MockMvc mockMvc;
+    private MockMvc mockMvc;
 
     @BeforeEach
     void setUp() {
@@ -40,6 +44,18 @@ class SearchControllerTest {
         mockMvc.perform(get("/search"))
                 .andExpect(status().is2xxSuccessful())
                 .andExpect(model().attributeExists("searchObject"))
+                .andExpect(view().name("forms/searchform"));
+    }
+
+    @Test
+    void returnSearchWithValidationError() throws Exception{
+        ObjectError error = new ObjectError("string","string");
+
+        BindingResult bindingResult = new BindException("String", "String");
+        bindingResult.addError(error);
+
+        mockMvc.perform(get("/search/newsearch"))
+                .andExpect(status().is2xxSuccessful())
                 .andExpect(view().name("forms/searchform"));
     }
 }

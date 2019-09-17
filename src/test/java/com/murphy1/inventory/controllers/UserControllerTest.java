@@ -1,6 +1,7 @@
 package com.murphy1.inventory.controllers;
 
 import com.murphy1.inventory.model.User;
+import com.murphy1.inventory.model.Wallet;
 import com.murphy1.inventory.services.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -116,6 +117,28 @@ class UserControllerTest {
         mockMvc.perform(get("/user/delete/1"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/users.html"));
+    }
+
+    @Test
+    void login() throws Exception{
+        mockMvc.perform(get("/login"))
+                .andExpect(status().is2xxSuccessful())
+                .andExpect(view().name("inventorylogin"));
+    }
+
+    @Test
+    void logout() throws Exception{
+        mockMvc.perform(get("/logout"))
+                .andExpect(status().is2xxSuccessful())
+                .andExpect(view().name("inventorylogin"));
+    }
+
+    @Test
+    void newSignup() throws Exception{
+        mockMvc.perform(get("/user/signup"))
+                .andExpect(model().attributeExists("user"))
+                .andExpect(status().is2xxSuccessful())
+                .andExpect(view().name("forms/signupform"));
     }
 
 }

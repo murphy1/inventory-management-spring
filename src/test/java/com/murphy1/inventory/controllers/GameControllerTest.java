@@ -29,9 +29,9 @@ class GameControllerTest {
     @Mock
     Model model;
 
-    GameController gameController;
+    private GameController gameController;
 
-    MockMvc mockMvc;
+    private MockMvc mockMvc;
 
     @BeforeEach
     void setUp() {
@@ -88,6 +88,31 @@ class GameControllerTest {
         )
                 .andExpect(status().is3xxRedirection())
                 .andExpect(model().attributeExists("game"))
+                .andExpect(view().name("redirect:/games.html"));
+    }
+
+    @Test
+    void updateGame() throws Exception{
+        Game game = new Game();
+        when(gameService.findById(anyLong())).thenReturn(game);
+        gameService.findById(anyLong());
+
+        verify(gameService, times(1)).findById(anyLong());
+
+        mockMvc.perform(get("/game/update/1"))
+                .andExpect(status().is2xxSuccessful())
+                .andExpect(model().attributeExists("game"))
+                .andExpect(view().name("forms/gameform"));
+    }
+
+    @Test
+    void deleteGameById() throws Exception{
+        gameService.deleteGameById(anyLong());
+
+        verify(gameService, times(1)).deleteGameById(anyLong());
+
+        mockMvc.perform(get("/game/delete/1"))
+                .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/games.html"));
     }
 }

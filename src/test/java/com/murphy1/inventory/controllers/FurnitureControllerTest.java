@@ -29,9 +29,9 @@ class FurnitureControllerTest {
     @Mock
     Model model;
 
-    FurnitureController furnitureController;
+    private FurnitureController furnitureController;
 
-    MockMvc mockMvc;
+    private MockMvc mockMvc;
 
     @BeforeEach
     void setUp() {
