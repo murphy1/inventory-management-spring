@@ -1,9 +1,13 @@
 package com.murphy1.inventory.services.impl;
 
+import com.murphy1.inventory.exceptions.BadRequestException;
 import com.murphy1.inventory.exceptions.NotFoundException;
 import com.murphy1.inventory.model.Furniture;
+import com.murphy1.inventory.model.Wallet;
 import com.murphy1.inventory.repositories.FurnitureRepository;
 import com.murphy1.inventory.services.FurnitureService;
+import com.murphy1.inventory.services.WalletService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -14,6 +18,9 @@ import java.util.Optional;
 public class FurnitureServiceImpl implements FurnitureService {
 
     private FurnitureRepository furnitureRepository;
+
+    @Autowired
+    WalletService walletService;
 
     public FurnitureServiceImpl(FurnitureRepository furnitureRepository) {
         this.furnitureRepository = furnitureRepository;
@@ -28,7 +35,19 @@ public class FurnitureServiceImpl implements FurnitureService {
 
     @Override
     public Furniture save(Furniture furniture) {
-        return furnitureRepository.save(furniture);
+
+        Double price = furniture.getPrice();
+        Wallet wallet = walletService.getWalletByPrincipal();
+
+        double newBalance = wallet.getBalance() - price;
+        if (newBalance < 0){
+            throw new BadRequestException("Not Enough Funds!");
+        }else{
+            wallet.setBalance(wallet.getBalance() - price);
+            furnitureRepository.save(furniture);
+        }
+
+        return furniture;
     }
 
     @Override

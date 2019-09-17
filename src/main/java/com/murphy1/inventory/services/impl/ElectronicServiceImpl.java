@@ -1,10 +1,14 @@
 package com.murphy1.inventory.services.impl;
 
+import com.murphy1.inventory.exceptions.BadRequestException;
 import com.murphy1.inventory.exceptions.NotFoundException;
 import com.murphy1.inventory.model.Electronic;
+import com.murphy1.inventory.model.Wallet;
 import com.murphy1.inventory.repositories.ElectronicRepository;
 import com.murphy1.inventory.services.ElectronicService;
+import com.murphy1.inventory.services.WalletService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -16,6 +20,9 @@ import java.util.Optional;
 public class ElectronicServiceImpl implements ElectronicService {
 
     private ElectronicRepository electronicRepository;
+
+    @Autowired
+    private WalletService walletService;
 
     public ElectronicServiceImpl(ElectronicRepository electronicRepository) {
         this.electronicRepository = electronicRepository;
@@ -30,7 +37,18 @@ public class ElectronicServiceImpl implements ElectronicService {
 
     @Override
     public Electronic save(Electronic electronic) {
-        electronicRepository.save(electronic);
+
+        Double price = electronic.getPrice();
+        Wallet wallet = walletService.getWalletByPrincipal();
+
+        double newBalance = wallet.getBalance() - price;
+        if (newBalance < 0){
+            throw new BadRequestException("Not Enough Funds!");
+        }else{
+            wallet.setBalance(wallet.getBalance() - price);
+            electronicRepository.save(electronic);
+        }
+
         return electronic;
     }
 

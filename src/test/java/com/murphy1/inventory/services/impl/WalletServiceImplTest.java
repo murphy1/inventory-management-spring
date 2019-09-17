@@ -1,6 +1,7 @@
 package com.murphy1.inventory.services.impl;
 
 import com.murphy1.inventory.model.Wallet;
+import com.murphy1.inventory.repositories.UserRepository;
 import com.murphy1.inventory.repositories.WalletRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,12 +19,15 @@ class WalletServiceImplTest {
     @Mock
     WalletRepository walletRepository;
 
+    @Mock
+    UserRepository userRepository;
+
     WalletServiceImpl walletServiceImpl;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
-        walletServiceImpl = new WalletServiceImpl(walletRepository);
+        walletServiceImpl = new WalletServiceImpl(walletRepository, userRepository);
     }
 
     @Test

@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface WalletService {
     List<Wallet> getAllWallets();
+    Wallet getWalletByPrincipal();
+    Wallet save(Wallet wallet);
 }

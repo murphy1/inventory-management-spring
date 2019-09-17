@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'templates')}">
+<head>
+    <meta charset="UTF-8">
+    <title>View Wallet</title>
+</head>
+<body>
+
+<div class="container-fluid padding">
+    <div class="row padding">
+        <div class="col-12">
+            <div class="card" title="table-card">
+                <div class="card-body">
+                    <h4 class="card-title">My Wallet</h4>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">Balance</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="item : ${wallet}">
+                            <td th:text="${item.balance}">100</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <a href="/update/wallet" class="btn btn-info" role="button">Add Funds</a><br>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,10 +1,12 @@
 package com.murphy1.inventory.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Wallet extends BaseEntity{
 
+    @NotNull
     private Double balance;
 
     @OneToOne
