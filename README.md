@@ -2,10 +2,24 @@
 # inventory-management-spring
 Inventory Management Project re-imagined with Spring
 
-![Test Image 3](Homepage.jpg)
+Manage your Inventory efficiently and dynamically.
+![Home](https://github.com/murphy1/inventory-management-spring/blob/master/src/main/resources/static/Homepage.jpg)
 
-![Test Image 3](Furniture.jpg)
 
-![Test Image 3](Wallet.jpg)
+Easy CRUD operations for your products!
+![Products](https://github.com/murphy1/inventory-management-spring/blob/master/src/main/resources/static/Furniture.jpg)
 
-![Test Image 3](Users_readme.jpg)
+
+Check your availables funds, while Finance users can make updates directly with ease.
+![Wallet](https://github.com/murphy1/inventory-management-spring/blob/master/src/main/resources/static/Wallet.jpg)
+
+
+Admins can easily update users. Adding new roles, enabling and disabling accounts. 
+![Users](https://github.com/murphy1/inventory-management-spring/blob/master/src/main/resources/static/Users_readme.jpg)
+
+
+Moves seamlessly between H2 in memory database while in development. And a MySql DB while in production.
+
+To get started just set up an SQL instance on your end and connect to it with the properties file.
+
+Feel free to reach me directly for further assistance. Email: smurphy54321@gmail.com
