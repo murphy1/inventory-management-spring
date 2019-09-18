@@ -38,15 +38,36 @@ public class ElectronicServiceImpl implements ElectronicService {
     @Override
     public Electronic save(Electronic electronic) {
 
+        Long electronicId = electronic.getId();
         Double price = electronic.getPrice();
         Wallet wallet = walletService.getWalletByPrincipal();
 
-        double newBalance = wallet.getBalance() - price;
-        if (newBalance < 0){
-            throw new BadRequestException("Not Enough Funds!");
-        }else{
-            wallet.setBalance(wallet.getBalance() - price);
+        if (electronicId == null){
+            double newBalance = wallet.getBalance() - price;
+            if (newBalance < 0){
+                throw new BadRequestException("Not Enough Funds!");
+            }else{
+                wallet.setBalance(wallet.getBalance() - price);
+                electronicRepository.save(electronic);
+            }
+        }
+        else if (findById(electronicId).getPrice().equals(price)){
             electronicRepository.save(electronic);
+        }
+        else{
+            double oldPrice = findById(electronicId).getPrice();
+
+            if (price < oldPrice){
+                double difference = oldPrice - price;
+                wallet.setBalance(wallet.getBalance() + difference);
+                electronicRepository.save(electronic);
+            }
+            else{
+                double difference = price - oldPrice;
+                wallet.setBalance(wallet.getBalance() - difference);
+                electronicRepository.save(electronic);
+            }
+
         }
 
         return electronic;

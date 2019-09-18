@@ -36,15 +36,36 @@ public class GameServiceImpl implements GameService {
     @Override
     public Game save(Game game) {
 
+        Long gameId = game.getId();
         Double price = game.getPrice();
         Wallet wallet = walletService.getWalletByPrincipal();
 
-        double newBalance = wallet.getBalance() - price;
-        if (newBalance < 0){
-            throw new BadRequestException("Not Enough Funds!");
-        }else{
-            wallet.setBalance(wallet.getBalance() - price);
+        if (gameId == null){
+            double newBalance = wallet.getBalance() - price;
+            if (newBalance < 0){
+                throw new BadRequestException("Not Enough Funds!");
+            }else{
+                wallet.setBalance(wallet.getBalance() - price);
+                gameRepository.save(game);
+            }
+        }
+        else if (findById(gameId).getPrice().equals(price)){
             gameRepository.save(game);
+        }
+        else{
+            double oldPrice = findById(gameId).getPrice();
+
+            if (price < oldPrice){
+                double difference = oldPrice - price;
+                wallet.setBalance(wallet.getBalance() + difference);
+                gameRepository.save(game);
+            }
+            else{
+                double difference = price - oldPrice;
+                wallet.setBalance(wallet.getBalance() - difference);
+                gameRepository.save(game);
+            }
+
         }
 
         return game;

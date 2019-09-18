@@ -1,5 +1,6 @@
 package com.murphy1.inventory.services.impl;
 
+import com.murphy1.inventory.exceptions.BadRequestException;
 import com.murphy1.inventory.model.User;
 import com.murphy1.inventory.model.Wallet;
 import com.murphy1.inventory.repositories.UserRepository;

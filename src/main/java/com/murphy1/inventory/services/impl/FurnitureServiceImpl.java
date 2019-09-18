@@ -36,15 +36,36 @@ public class FurnitureServiceImpl implements FurnitureService {
     @Override
     public Furniture save(Furniture furniture) {
 
+        Long furnitureId = furniture.getId();
         Double price = furniture.getPrice();
         Wallet wallet = walletService.getWalletByPrincipal();
 
-        double newBalance = wallet.getBalance() - price;
-        if (newBalance < 0){
-            throw new BadRequestException("Not Enough Funds!");
-        }else{
-            wallet.setBalance(wallet.getBalance() - price);
+        if (furnitureId == null){
+            double newBalance = wallet.getBalance() - price;
+            if (newBalance < 0){
+                throw new BadRequestException("Not Enough Funds!");
+            }else{
+                wallet.setBalance(wallet.getBalance() - price);
+                furnitureRepository.save(furniture);
+            }
+        }
+        else if (findById(furnitureId).getPrice().equals(price)){
             furnitureRepository.save(furniture);
+        }
+        else{
+            double oldPrice = findById(furnitureId).getPrice();
+
+            if (price < oldPrice){
+                double difference = oldPrice - price;
+                wallet.setBalance(wallet.getBalance() + difference);
+                furnitureRepository.save(furniture);
+            }
+            else{
+                double difference = price - oldPrice;
+                wallet.setBalance(wallet.getBalance() - difference);
+                furnitureRepository.save(furniture);
+            }
+
         }
 
         return furniture;

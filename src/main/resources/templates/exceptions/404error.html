@@ -6,10 +6,19 @@
 </head>
 <body>
 
-<h1>404 Error</h1>
-
-<!--/*@thymesVar id="exception" type="com.murphy1.inventory.controllers.ControllerExceptionHandler"*/-->
-<p th:text="${exception}"></p>
+<div class="container-fluid padding">
+    <div class="row padding">
+        <div class="col-12">
+            <div class="card" title="table-card">
+                <div class="card-body">
+                    <h4 class="card-title">Something went wrong</h4>
+                    <!--/*@thymesVar id="exception" type="com.murphy1.inventory.controllers.ControllerExceptionHandler"*/-->
+                    <p th:text="${exception}"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 </body>
 </html>
