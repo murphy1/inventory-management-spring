@@ -1,7 +1,6 @@
 package com.murphy1.inventory.controllers;
 
 import com.murphy1.inventory.model.User;
-import com.murphy1.inventory.model.Wallet;
 import com.murphy1.inventory.services.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -30,9 +29,9 @@ class UserControllerTest {
     @Mock
     Model model;
 
-    UserController userController;
+    private UserController userController;
 
-    MockMvc mockMvc;
+    private MockMvc mockMvc;
 
     @BeforeEach
     void setUp() {
@@ -43,7 +42,6 @@ class UserControllerTest {
 
     @Test
     void getAllUsers() {
-        // given
         List<User> users = new ArrayList<>();
         users.add(new User());
         users.add(new User());
@@ -52,10 +50,8 @@ class UserControllerTest {
 
         ArgumentCaptor<List<User>> argumentCaptor = ArgumentCaptor.forClass(List.class);
 
-        // when
         String returnType = userController.getAllUsers(model);
 
-        // then
         assertEquals("user", returnType);
         verify(userService, times(1)).getAllUsers();
         verify(model, times(1)).addAttribute(eq("users"), argumentCaptor.capture());

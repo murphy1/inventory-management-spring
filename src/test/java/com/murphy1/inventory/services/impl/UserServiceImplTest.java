@@ -1,7 +1,6 @@
 package com.murphy1.inventory.services.impl;
 
 import com.murphy1.inventory.model.User;
-import com.murphy1.inventory.model.Wallet;
 import com.murphy1.inventory.repositories.UserRepository;
 import com.murphy1.inventory.repositories.WalletRepository;
 import org.junit.jupiter.api.BeforeEach;

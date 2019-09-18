@@ -32,9 +32,9 @@ class GroceryControllerTest {
     @Mock
     Model model;
 
-    GroceryController groceryController;
+    private GroceryController groceryController;
 
-    MockMvc mockMvc;
+    private MockMvc mockMvc;
 
     @BeforeEach
     void setUp() {
