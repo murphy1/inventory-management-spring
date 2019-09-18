@@ -14,6 +14,7 @@ import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -40,6 +41,14 @@ public class UserServiceImpl implements UserService {
 
         if (!user.getPassword().equals(user.getPasswordCheck())){
             throw new BadRequestException("Passwords do not match!");
+        }
+
+        List<String> usernames = userRepository.findAll().stream()
+                .map(user1 -> user1.getUsername().toLowerCase())
+                .collect(Collectors.toList());
+
+        if (usernames.contains(user.getUsername().toLowerCase())){
+            throw new BadRequestException("Username: "+user.getUsername()+" already exists!");
         }
 
         Long idCheck = user.getId();
