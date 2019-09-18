@@ -33,7 +33,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/furniture").hasAnyAuthority("ADMIN", "FINANCE", "USER")
                 .antMatchers("/search").hasAnyAuthority("ADMIN", "FINANCE", "USER")
                 .antMatchers("/").permitAll()
-                .and().formLogin().loginPage("/login");
+                .and().formLogin().loginPage("/login")
+                .and()
+                .exceptionHandling()
+                .accessDeniedPage("/403");
 
         http.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
     }
