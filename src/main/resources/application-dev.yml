@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/
-    username:
-    password:
+    url: jdbc:mysql://localhost:3306/inv_management
+    username: dev_user
+    password: password
   jpa:
     hibernate:
       ddl-auto: update
