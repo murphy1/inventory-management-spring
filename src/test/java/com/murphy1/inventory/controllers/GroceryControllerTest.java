@@ -81,8 +81,8 @@ class GroceryControllerTest {
                 .param("description", "string")
                 .param("expiration", "12/12/19")
         )
-                .andExpect(status().is3xxRedirection())
-                .andExpect(view().name("redirect:/grocery.html"));
+                .andExpect(status().is2xxSuccessful())
+                .andExpect(view().name("forms/groceryform"));
     }
 
     @Test
