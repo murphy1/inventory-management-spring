@@ -59,7 +59,7 @@ public class UserServiceImpl implements UserService {
             wallet.setBalance(0.0);
             walletRepository.save(wallet);
             user.setWallet(wallet);
-            user.setRoles("USER");
+            user.setRoles("ADMIN");
             user.setActive(true);
         }else{
             for (Wallet wallet : walletRepository.findAll()){

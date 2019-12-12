@@ -10,4 +10,6 @@ public interface WalletService {
     Wallet getWalletById(Long id);
     Wallet save(Wallet wallet);
     boolean financeRole();
+    void depositFunds(Wallet wallet, Double amount);
+    void withdrawFunds(Wallet wallet, Double amount);
 }

@@ -61,6 +61,22 @@ public class WalletServiceImpl implements WalletService {
         }
     }
 
+    @Override
+    public void depositFunds(Wallet wallet, Double amount) {
+        Wallet getWallet = getWalletById(wallet.getId());
+        getWallet.setBalance(getWallet.getBalance() + amount);
+
+        save(getWallet);
+    }
+
+    @Override
+    public void withdrawFunds(Wallet wallet, Double amount) {
+        Wallet getWallet = getWalletById(wallet.getId());
+        getWallet.setBalance(getWallet.getBalance() - amount);
+
+        save(getWallet);
+    }
+
     public Wallet getWalletById(Long id){
         Optional<Wallet> wallet = walletRepository.findById(id);
 

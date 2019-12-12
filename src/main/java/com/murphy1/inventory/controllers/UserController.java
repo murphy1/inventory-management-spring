@@ -23,7 +23,7 @@ public class UserController {
     @RequestMapping({"/user", "/users", "/user.html", "/users.html"})
     public String getAllUsers(Model model){
 
-        model.addAttribute("users", userService.getAllUsers());
+            model.addAttribute("users", userService.getAllUsers());
 
         return "user";
     }

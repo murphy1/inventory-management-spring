@@ -73,7 +73,7 @@
                             <div class="row">
                                 <div class="col-md-3 form-group" th:class="${#fields.hasErrors('balance')} ?
                                     'col-md-3 form-group has-error' : 'col-md-3 form-group'">
-                                    <label>Deposit Funds:</label>
+                                    <label></label>
                                     <input type="text" class="form-control" th:field="*{balance}" th:errorclass="has-error"/>
                                     <span class="help-block" th:if="${#fields.hasErrors('balance')}">
                                         <ul>
@@ -114,7 +114,7 @@
                             <div class="row">
                                 <div class="col-md-3 form-group" th:class="${#fields.hasErrors('balance')} ?
                                     'col-md-3 form-group has-error' : 'col-md-3 form-group'">
-                                    <label>Deposit Funds:</label>
+                                    <label></label>
                                     <input type="text" class="form-control" th:field="*{balance}" th:errorclass="has-error"/>
                                     <span class="help-block" th:if="${#fields.hasErrors('balance')}">
                                         <ul>
